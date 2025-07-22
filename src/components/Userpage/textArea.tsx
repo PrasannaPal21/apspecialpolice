@@ -85,14 +85,14 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
       const now = Date.now();
       const elapsedSinceStart = Math.floor((now - savedState.startTime) / 1000);
       const newTimeRemaining = Math.max(0, savedState.timeRemaining - elapsedSinceStart);
-      
+
       if (newTimeRemaining > 0) {
         // Restore state
         setText(savedState.sessionText);
         setStartTime(savedState.startTime);
         setTimeRemaining(newTimeRemaining);
         setTimerStarted(savedState.timerStarted);
-        
+
         // Calculate typing speed based on saved data
         if (savedState.sessionText.trim()) {
           const totalElapsedTime = (now - savedState.startTime) / 1000;
@@ -101,7 +101,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
             .filter((word) => word.length > 0).length;
           setTypingSpeed(wordsTyped > 0 ? (wordsTyped / totalElapsedTime) * 60 : 1);
         }
-        
+
         if (savedState.timerStarted) {
           // Restart timers with remaining time
           startAutoSubmitTimerWithTime(newTimeRemaining);
@@ -203,7 +203,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
   // Handle auto-submit - unified with manual submit logic
   const handleAutoSubmit = async (): Promise<void> => {
     const currentText = textRef.current; // Use ref value instead of state
-    
+
     if (!currentText.trim()) {
       setMessage("Time limit reached - No text to submit.");
       clearAutoSubmitTimers();
@@ -232,7 +232,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
     );
 
     if (!textToSubmit.trim()) {
-      const message = isAutoSubmit 
+      const message = isAutoSubmit
         ? "Time limit reached - No text to submit."
         : "Please enter some text before submitting.";
       alert(message);
@@ -288,18 +288,18 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
         throw new Error(`Failed to submit text: ${errorMessage}`);
       }
 
-      const successMessage = isAutoSubmit 
-        ? "Auto-submitted successfully!" 
+      const successMessage = isAutoSubmit
+        ? "Auto-submitted successfully!"
         : "Submitted Successfully!";
       setMessage(successMessage);
       setSubmitStatus(true);
       setText(""); // Clear the text area after successful submission
       setTimeRemaining(300); // Reset timer
       setTimerStarted(false); // Reset timer state for next session
-      
+
       // Clear localStorage after successful submission
       clearTimerState();
-      
+
     } catch (error: any) {
       console.error("Error submitting text:", error);
       setMessage(`Error: ${error.message}`);
@@ -353,7 +353,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
     if (!timerStarted && currentText.trim()) {
       startAutoSubmitTimer();
     }
-    
+
     // Timer continues even if text becomes empty - no clearing
   };
 
@@ -399,8 +399,8 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
       <div className=" py-2 bg-gray-100 rounded-2xl shadow-lg my-5">
         <h2 className="text-2xl font-semibold text-gray-800 text-center">Section 1</h2>
       </div>
-      
-       <div className="mb-4 bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-inner">
+
+      <div className="mb-4 bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-inner">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Sample Text</h3>
         <p className="text-sm text-gray-600 leading-relaxed">
           Amidst the hum of old ceiling fans and the quiet rustle of worn-out notebooks, Ayaan typed fiercely—five minutes, one paragraph, no backspace. His fingers hesitated not from fear, but from the weight of precision each letter demanded. Somewhere outside, a dog barked twice, unsettling his rhythm like a sudden comma in a well-paced sentence. He recalled his teacher&apos;s warning: “Speed without accuracy is noise.” The exam room wasn&apos;t silent; it was loud with tension, heavy with the scent of stale ink and determination. His thoughts tried to outrun the clock, yet he stayed grounded—comma by clause, period by pause. Somewhere in the corner, someone had already stopped typing. Had they finished, or given up? The wall clock ticked louder now, like a heartbeat synced to stress. Every word was a step closer to clarity, or chaos. Five minutes felt like a lifetime dressed in keystrokes. He knew—this wasn&apos;t just a test of typing. It was a test of focus, endurance, and the subtle art of letting thoughts flow faster than doubt
@@ -436,15 +436,14 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
               </div>
             )}
           </div>
-          
+
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className={`h-2 rounded-full transition-all duration-300 ${
-                timeRemaining <= 30 ? 'bg-red-500' : 
-                timeRemaining <= 60 ? 'bg-orange-500' : 
-                'bg-emerald-500'
-              }`}
+            <div
+              className={`h-2 rounded-full transition-all duration-300 ${timeRemaining <= 30 ? 'bg-red-500' :
+                  timeRemaining <= 60 ? 'bg-orange-500' :
+                    'bg-emerald-500'
+                }`}
               style={{ width: `${getProgressPercentage()}%` }}
             ></div>
           </div>
@@ -461,10 +460,12 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
             onCopy={handleCopy}
             onPaste={handlePaste}
             onKeyDown={handleKeyDown}
+            onDrop={(e) => e.preventDefault()}
+            onDragOver={(e) => e.preventDefault()}
             placeholder="Start typing here... Your session will begin automatically and auto-submit after 5 minutes."
             className="w-full h-48 resize-none border-2 border-gray-200 rounded-xl p-6 text-lg leading-relaxed shadow-sm focus:ring-4 focus:ring-blue-100 focus:border-blue-500 focus:outline-none transition-all duration-200 placeholder-gray-400"
           />
-          
+
           {/* Character Count */}
           <div className="absolute bottom-4 right-4 text-sm text-gray-500 bg-white px-2 py-1 rounded-md shadow-sm">
             {text.length} characters
@@ -484,13 +485,13 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
               <div>
                 <p className="text-sm text-gray-600">Typing Speed</p>
                 <p className="text-2xl font-bold text-blue-600">
-                  {typingSpeed ? typingSpeed.toFixed(1) : '0.0'} 
+                  {typingSpeed ? typingSpeed.toFixed(1) : '0.0'}
                   <span className="text-sm font-normal text-gray-500 ml-1">WPM</span>
                 </p>
               </div>
             </div>
           </div>
-          
+
           {/* Word Count */}
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-4">
             <div className="flex items-center space-x-2">
@@ -522,7 +523,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
             </div>
           ) : (
             <div className="flex items-center space-x-1">
-              
+
               <span>Submit Text</span>
             </div>
           )}
@@ -546,7 +547,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
                 Review your text before final submission
               </p>
             </div>
-            
+
             <div className="mb-6">
               <div className="bg-gray-50 rounded-lg p-4 border">
                 <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
@@ -554,14 +555,14 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
                   {text || "No text entered."}
                 </p>
               </div>
-              
+
               <div className="flex justify-between text-sm text-gray-500 mt-2">
                 <span>{text.length} characters</span>
                 <span>{text.split(" ").filter(word => word.length > 0).length} words</span>
                 <span>{typingSpeed ? typingSpeed.toFixed(1) : '0.0'} WPM</span>
               </div>
             </div>
-            
+
             <div className="flex space-x-3">
               <button
                 onClick={() => setShowConfirmation(false)}

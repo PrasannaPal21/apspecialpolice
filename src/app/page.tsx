@@ -95,6 +95,39 @@ export default function Home() {
     setShowInstructions(false);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        (e.ctrlKey && e.key === 'u')
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
+
   if (status === "loading" || !session) {
     return <LoadingScreen />;
   }
@@ -118,8 +151,8 @@ export default function Home() {
       <Header session={session} />
       <div className="flex h-[80vh]">
         <QPViewer session={session} textSubmitted={textSubmitted} />
-        <FormSubmit 
-          setMessage={setMessage} 
+        <FormSubmit
+          setMessage={setMessage}
           onTextSubmitted={() => setTextSubmitted(true)} // Pass callback to update text submission status
         />
         <DisplayMessage message={{ message }} setMessage={setMessage} />

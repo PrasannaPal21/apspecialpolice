@@ -379,7 +379,11 @@ const DashboardPage = () => {
                 <option value="2025-07-18">2025-07-18</option>
                 <option value="2025-07-19">2025-07-19</option>
                 <option value="2025-07-20">2025-07-20</option>
-                <option value="2025-07-21">2025-07-21</option>
+                <option value="2025-07-21">2025-07-21</option>                
+                <option value="2025-07-23">2025-07-23</option>
+                <option value="2025-07-27">2025-07-27</option>
+                <option value="2025-07-28">2025-07-28</option>
+                <option value="2025-07-29">2025-07-29</option>
               </select>
               <input
                 onChange={(e) => setOtp(e.target.value)}
@@ -428,6 +432,10 @@ const DashboardPage = () => {
               <option value="2025-07-19">2025-07-19</option>
               <option value="2025-07-20">2025-07-20</option>
               <option value="2025-07-21">2025-07-21</option>
+              <option value="2025-07-23">2025-07-23</option>
+              <option value="2025-07-27">2025-07-27</option>
+              <option value="2025-07-28">2025-07-28</option>
+              <option value="2025-07-29">2025-07-29</option>
             </select>
             <input
               onChange={(e) => setOtp(e.target.value)}

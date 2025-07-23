@@ -9,7 +9,7 @@ const ContentSecurityPolicy = `
   connect-src 'self' https://your-api-domain.com;
   media-src 'self';
   object-src 'none';
-  frame-src 'none';
+  frame-src 'self' blob:;
 `;
 
 const securityHeaders = [

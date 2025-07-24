@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { FileText, Clock, Upload, CheckCircle, AlertTriangle, Monitor, Keyboard } from 'lucide-react';
+import {
+  FileText,
+  Clock,
+  Upload,
+  CheckCircle,
+  AlertTriangle,
+  Monitor,
+  Keyboard,
+} from 'lucide-react';
 
 interface ExamInstructionsProps {
   onProceed: () => void;
@@ -75,23 +83,38 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div className="bg-white/80 rounded-lg p-4 border border-blue-100">
                     <h3 className="font-semibold text-blue-800 mb-2">Applications to be tested:</h3>
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      <div className="bg-blue-100 text-blue-700 px-3 py-2 rounded-lg text-center font-medium">
-                        MS Word
+                    <div className="grid grid-cols-3 gap-4 text-sm">
+                      <div className="flex flex-col items-center bg-blue-50 p-3 rounded-lg shadow">
+                        <img
+                          src="/word.png"
+                          alt="MS Word"
+                          className="w-8 h-8 mb-2"
+                        />
+                        <span className="text-blue-800 font-medium">MS Word</span>
                       </div>
-                      <div className="bg-green-100 text-green-700 px-3 py-2 rounded-lg text-center font-medium">
-                        MS Excel
+                      <div className="flex flex-col items-center bg-green-50 p-3 rounded-lg shadow">
+                        <img
+                          src="/excel.png"
+                          alt="MS Excel"
+                          className="w-8 h-8 mb-2"
+                        />
+                        <span className="text-green-800 font-medium">MS Excel</span>
                       </div>
-                      <div className="bg-orange-100 text-orange-700 px-3 py-2 rounded-lg text-center font-medium">
-                        MS PowerPoint
+                      <div className="flex flex-col items-center bg-orange-50 p-3 rounded-lg shadow">
+                        <img
+                          src="/powerpoint.png"
+                          alt="MS PowerPoint"
+                          className="w-8 h-8 mb-2"
+                        />
+                        <span className="text-orange-800 font-medium text-center">MS PowerPoint</span>
                       </div>
                     </div>
                   </div>
-                  
+
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-1 flex-shrink-0" />
@@ -114,30 +137,36 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                 </div>
                 <h2 className="text-2xl font-bold text-amber-800">General Guidelines</h2>
               </div>
-              
+
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-white/80 rounded-lg p-4 border border-amber-100">
                   <div className="flex items-center mb-2">
                     <Clock className="w-5 h-5 text-amber-600 mr-2" />
                     <h3 className="font-semibold text-amber-800">Time Management</h3>
                   </div>
-                  <p className="text-gray-700 text-sm">All tasks must be completed and submitted within the allotted time</p>
+                  <p className="text-gray-700 text-sm">
+                    All tasks must be completed and submitted within the allotted time
+                  </p>
                 </div>
-                
+
                 <div className="bg-white/80 rounded-lg p-4 border border-amber-100">
                   <div className="flex items-center mb-2">
                     <CheckCircle className="w-5 h-5 text-amber-600 mr-2" />
                     <h3 className="font-semibold text-amber-800">Accuracy</h3>
                   </div>
-                  <p className="text-gray-700 text-sm">Ensure submissions are accurate and complete before uploading</p>
+                  <p className="text-gray-700 text-sm">
+                    Ensure submissions are accurate and complete before uploading
+                  </p>
                 </div>
-                
+
                 <div className="bg-white/80 rounded-lg p-4 border border-amber-100">
                   <div className="flex items-center mb-2">
                     <AlertTriangle className="w-5 h-5 text-amber-600 mr-2" />
                     <h3 className="font-semibold text-amber-800">Evaluation Impact</h3>
                   </div>
-                  <p className="text-gray-700 text-sm">Late or incomplete submissions may affect your overall evaluation</p>
+                  <p className="text-gray-700 text-sm">
+                    Late or incomplete submissions may affect your overall evaluation
+                  </p>
                 </div>
               </div>
             </div>
@@ -158,7 +187,7 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                   </label>
                 </div>
               </div>
-              
+
               <button
                 onClick={handleProceed}
                 disabled={!agreed}
@@ -176,9 +205,11 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                   <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 )}
               </button>
-              
+
               {!agreed && (
-                <p className="text-sm text-gray-500 mt-2">Please accept the instructions to proceed</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Please accept the instructions to proceed
+                </p>
               )}
             </div>
           </div>

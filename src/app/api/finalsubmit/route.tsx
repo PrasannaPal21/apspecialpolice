@@ -8,18 +8,16 @@ import os from "os";
 
 const prisma = new PrismaClient();
 
-// Function to get local IP address
-function getLocalIPAddress() {
-  const interfaces = os.networkInterfaces();
-  for (const name of Object.keys(interfaces)) {
-    for (const networkInterface of interfaces[name] ?? []) {
-      // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-      if (networkInterface.family === "IPv4" && !networkInterface.internal) {
-        return networkInterface.address;
-      }
-    }
+// Utility to extract IP from headers (same as /api/ip)
+function getLocalIPAddress(req: Request): string {
+  const forwardedFor = req.headers.get("x-forwarded-for");
+  let ip = forwardedFor?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "Unknown";
+
+  if (ip.startsWith("::ffff:")) {
+    ip = ip.replace("::ffff:", "");
   }
-  return "localhost";
+
+  return ip;
 }
 
 export async function saveFile(
@@ -183,7 +181,7 @@ export async function GET(req: Request) {
     );
 
     // Get local IP address
-    const localIP = getLocalIPAddress();
+    const localIP = getLocalIPAddress(req);
 
     // Merge all available PDFs into one
     const { PDFDocument, rgb } = await import("pdf-lib");

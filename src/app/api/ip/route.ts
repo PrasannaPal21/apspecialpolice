@@ -1,20 +1,14 @@
-// api/ip/route.ts
-import { NextResponse } from 'next/server';
-import os from 'os';
+// app/api/ip/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
-  const interfaces = os.networkInterfaces();
-  let localIp = 'Unknown';
+export async function GET(req: NextRequest) {
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  let ip = forwardedFor?.split(',')[0]?.trim() || 'Unknown';
 
-  for (const name of Object.keys(interfaces)) {
-    for (const net of interfaces[name] || []) {
-      if (net.family === 'IPv4' && !net.internal) {
-        localIp = net.address;
-        break;
-      }
-    }
-    if (localIp !== 'Unknown') break;
+  // Remove IPv6 prefix if present
+  if (ip.startsWith('::ffff:')) {
+    ip = ip.replace('::ffff:', '');
   }
 
-  return NextResponse.json({ ip: localIp });
+  return NextResponse.json({ ip });
 }

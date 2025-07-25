@@ -410,12 +410,11 @@ export async function GET(req: Request) {
         // Add names and designations side by side below the signature on every page
         const fontSize = 18;
         const textYOffset = yOffset - 20; // Position below the signature
-        const spacing = 150; // Horizontal spacing between name-designation pairs
+        const spacing = 200; // Horizontal spacing between name-designation pairs
 
         const entries = [
-          { name: "DGP,\n CID, AP Police" },
-          { name: "Invigilator\n(VIT-AP)" },
-          { name: "Invigilator\n(CID)" },
+          { name: "DGP - CID, AP Police" },
+          { name: "Invigilator" },
           { name: "Candidate" },
         ];
 

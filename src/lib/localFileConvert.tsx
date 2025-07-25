@@ -108,8 +108,8 @@ export async function localConvertToPDFWithSignatures(
     const xOffset = 50; // Distance from the left
 
     // Draw the provided signature
-    const signatureWidth = 150; // Fixed width
-    const signatureHeight = 50; // Fixed height
+    const signatureWidth = 120; // Fixed width
+    const signatureHeight = 40; // Fixed height
     page.drawImage(signatureImage, {
       x: xOffset,
       y: yOffset,
@@ -120,12 +120,11 @@ export async function localConvertToPDFWithSignatures(
     // Add names and designations side by side below the signature on every page
     const fontSize = 18;
     const textYOffset = yOffset - 20; // Position below the signature
-    const spacing = 150; // Horizontal spacing between name-designation pairs
+    const spacing = 200; // Horizontal spacing between name-designation pairs
 
     const entries = [
-      { name: "DGP,\n CID, AP Police" },
-      { name: "Invigilator\n(VIT-AP)" },
-      { name: "Invigilator\n(CID)"},
+      { name: "DGP - CID, AP Police" },
+      { name: "Invigilator" },
       { name: "Candidate" },
     ];
 

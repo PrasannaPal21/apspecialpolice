@@ -421,6 +421,7 @@ const DashboardPage = () => {
               <option value="" disabled>Select Exam Slot</option>
               <option value="FN">FN</option>
               <option value="AN">AN</option>
+              <option value="EN">EN</option>
             </select>
             <select
               className="p-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/20 transition-all duration-300 bg-white"

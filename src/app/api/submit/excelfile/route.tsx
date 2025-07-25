@@ -74,6 +74,14 @@ export async function POST(request: Request) {
       "original"
     );
 
+    const originalfolderPathBkp = path.join(
+      "Z:",
+      "uploads",
+      fetched_user.hallticket,
+      "original"
+    );
+
+
     const pdfFolderPath = path.join(
       process.cwd(),
       "uploads",
@@ -82,12 +90,15 @@ export async function POST(request: Request) {
     );
 
     const originalpath = await saveFile(originalfolderPath, excelfile);
+    const originalpathbkp = await saveFile(originalfolderPathBkp, excelfile);
 
     const pdfpath = await localConvertToPDFWithSignatures(
       pdfFolderPath,
       originalpath,
       fetched_user.hallticket
     );
+
+  
 
     const fielEntryExists = await prisma.excelFile.findFirst({
       where: { userId: fetched_user.id },

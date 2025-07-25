@@ -81,6 +81,13 @@ export async function POST(request: Request) {
       fetched_user.hallticket,
       "original"
     );
+    const originalfolderPathBkp = path.join(
+      "Z:",
+      "uploads",
+      fetched_user.hallticket,
+      "original"
+    );
+
 
     const pdfFolderPath = path.join(
       process.cwd(),
@@ -90,6 +97,7 @@ export async function POST(request: Request) {
     );
 
     const originalpath = await saveFile(originalfolderPath, textFile);
+    const originalpathbkp = await saveFile(originalfolderPathBkp, textFile);
 
     const pdfpath = await localConvertToPDFWithSignatures(
       pdfFolderPath,

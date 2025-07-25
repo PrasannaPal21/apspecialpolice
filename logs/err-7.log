@@ -1,0 +1,450 @@
+2025-07-25T11:52:43: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:43: @ECHO off
+2025-07-25T11:52:43: ^
+2025-07-25T11:52:43: 
+2025-07-25T11:52:43: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:43:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:43:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:43:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:43:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:44: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:44: @ECHO off
+2025-07-25T11:52:44: ^
+2025-07-25T11:52:44: 
+2025-07-25T11:52:44: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:44:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:44:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:45: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:45: @ECHO off
+2025-07-25T11:52:45: ^
+2025-07-25T11:52:45: 
+2025-07-25T11:52:45: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:45:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:45:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:46: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:46: @ECHO off
+2025-07-25T11:52:46: ^
+2025-07-25T11:52:46: 
+2025-07-25T11:52:46: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:46:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:46:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:46:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:46:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:46:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:46:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:46:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:46:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:46:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:46:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:47: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:47: @ECHO off
+2025-07-25T11:52:47: ^
+2025-07-25T11:52:47: 
+2025-07-25T11:52:47: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:47:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:47:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:47:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:48: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:48: @ECHO off
+2025-07-25T11:52:48: ^
+2025-07-25T11:52:48: 
+2025-07-25T11:52:48: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:48:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:49: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:49: @ECHO off
+2025-07-25T11:52:49: ^
+2025-07-25T11:52:49: 
+2025-07-25T11:52:49: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:49:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:49:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:49:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:49:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:49:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:49:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:49:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:49:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:49:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:49:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:51: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:51: @ECHO off
+2025-07-25T11:52:51: ^
+2025-07-25T11:52:51: 
+2025-07-25T11:52:51: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:51:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:51:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:51:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:51:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:51:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:51:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:51:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:51:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:51:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:51:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:52: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:52: @ECHO off
+2025-07-25T11:52:52: ^
+2025-07-25T11:52:52: 
+2025-07-25T11:52:52: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:52:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:52:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:52:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:52:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:52:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:52:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:52:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:52:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:52:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:52:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:53: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:52:53: @ECHO off
+2025-07-25T11:52:53: ^
+2025-07-25T11:52:53: 
+2025-07-25T11:52:53: SyntaxError: Invalid or unexpected token
+2025-07-25T11:52:53:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:52:53:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:52:53:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:53:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:53:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:52:53:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:52:53:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:52:53:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:52:53:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:52:53:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:42: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:42: @ECHO off
+2025-07-25T11:55:42: ^
+2025-07-25T11:55:42: 
+2025-07-25T11:55:42: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:42:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:42:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:43: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:43: @ECHO off
+2025-07-25T11:55:43: ^
+2025-07-25T11:55:43: 
+2025-07-25T11:55:43: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:43:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:43:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:43:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:43:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:44: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:44: @ECHO off
+2025-07-25T11:55:44: ^
+2025-07-25T11:55:44: 
+2025-07-25T11:55:44: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:44:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:44:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:46: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:46: @ECHO off
+2025-07-25T11:55:46: ^
+2025-07-25T11:55:46: 
+2025-07-25T11:55:46: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:46:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:46:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:46:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:46:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:46:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:46:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:46:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:46:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:46:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:46:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:47: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:47: @ECHO off
+2025-07-25T11:55:47: ^
+2025-07-25T11:55:47: 
+2025-07-25T11:55:47: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:47:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:47:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:47:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:48: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:48: @ECHO off
+2025-07-25T11:55:48: ^
+2025-07-25T11:55:48: 
+2025-07-25T11:55:48: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:48:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:49: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:49: @ECHO off
+2025-07-25T11:55:49: ^
+2025-07-25T11:55:49: 
+2025-07-25T11:55:49: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:49:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:49:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:49:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:49:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:49:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:49:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:49:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:49:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:49:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:49:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:50: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:50: @ECHO off
+2025-07-25T11:55:50: ^
+2025-07-25T11:55:50: 
+2025-07-25T11:55:50: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:50:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:50:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:50:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:50:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:50:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:50:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:50:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:50:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:50:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:50:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:51: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:51: @ECHO off
+2025-07-25T11:55:51: ^
+2025-07-25T11:55:51: 
+2025-07-25T11:55:51: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:51:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:51:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:51:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:51:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:51:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:51:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:51:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:51:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:51:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:51:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:53: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T11:55:53: @ECHO off
+2025-07-25T11:55:53: ^
+2025-07-25T11:55:53: 
+2025-07-25T11:55:53: SyntaxError: Invalid or unexpected token
+2025-07-25T11:55:53:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T11:55:53:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T11:55:53:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:53:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:53:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T11:55:53:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T11:55:53:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T11:55:53:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T11:55:53:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T11:55:53:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:19: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:19: @ECHO off
+2025-07-25T12:02:19: ^
+2025-07-25T12:02:19: 
+2025-07-25T12:02:19: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:19:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:19:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:19:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:19:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:19:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:19:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:19:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:19:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:19:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:19:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:20: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:20: @ECHO off
+2025-07-25T12:02:20: ^
+2025-07-25T12:02:20: 
+2025-07-25T12:02:20: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:20:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:20:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:20:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:20:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:20:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:20:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:20:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:20:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:20:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:20:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:21: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:21: @ECHO off
+2025-07-25T12:02:21: ^
+2025-07-25T12:02:21: 
+2025-07-25T12:02:21: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:21:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:21:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:21:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:21:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:21:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:21:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:21:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:21:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:21:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:21:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:22: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:22: @ECHO off
+2025-07-25T12:02:22: ^
+2025-07-25T12:02:22: 
+2025-07-25T12:02:22: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:22:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:22:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:22:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:22:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:22:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:22:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:22:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:22:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:22:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:22:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:23: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:23: @ECHO off
+2025-07-25T12:02:23: ^
+2025-07-25T12:02:23: 
+2025-07-25T12:02:23: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:23:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:23:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:23:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:23:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:23:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:23:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:23:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:23:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:23:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:23:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:25: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:25: @ECHO off
+2025-07-25T12:02:25: ^
+2025-07-25T12:02:25: 
+2025-07-25T12:02:25: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:25:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:25:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:25:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:25:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:25:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:25:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:25:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:25:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:25:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:25:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:26: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:26: @ECHO off
+2025-07-25T12:02:26: ^
+2025-07-25T12:02:26: 
+2025-07-25T12:02:26: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:26:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:26:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:26:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:26:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:26:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:26:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:26:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:26:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:26:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:26:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:27: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:27: @ECHO off
+2025-07-25T12:02:27: ^
+2025-07-25T12:02:27: 
+2025-07-25T12:02:27: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:27:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:27:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:27:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:27:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:27:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:27:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:27:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:27:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:27:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:27:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:28: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:28: @ECHO off
+2025-07-25T12:02:28: ^
+2025-07-25T12:02:28: 
+2025-07-25T12:02:28: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:28:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:28:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:28:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:28:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:28:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:28:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:28:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:28:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:28:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:28:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:29: C:\APCID_PRIVATE\NODE_MODULES\.BIN\NPM.CMD:1
+2025-07-25T12:02:29: @ECHO off
+2025-07-25T12:02:29: ^
+2025-07-25T12:02:29: 
+2025-07-25T12:02:29: SyntaxError: Invalid or unexpected token
+2025-07-25T12:02:29:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-25T12:02:29:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-25T12:02:29:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:29:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:29:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-25T12:02:29:     at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-25T12:02:29:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-25T12:02:29:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-25T12:02:29:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-25T12:02:29:     at Function._load (node:internal/modules/cjs/loader:1282:12)

@@ -214,7 +214,7 @@ export async function GET(req: Request) {
           page.drawText(
             `IP: ${localIP} | Name: ${
               fetched_user.name || "N/A"
-            } | Hall Ticket: ${fetched_user.hallticket}`,
+            } | Hall Ticket: ${fetched_user.hallticket} | Exam Room: ${fetched_user.examroom}`,
             {
               x: 50,
               y: page.getHeight() - 20,
@@ -403,11 +403,12 @@ export async function GET(req: Request) {
         // Add names and designations side by side below the signature on every page
         const fontSize = 18;
         const textYOffset = yOffset - 20; // Position below the signature
-        const spacing = 200; // Horizontal spacing between name-designation pairs
+        const spacing = 150; // Horizontal spacing between name-designation pairs
 
         const entries = [
-          { name: "DGP" },
-          { name: "Invigilator" },
+          { name: "DGP,\n CID, AP Police" },
+          { name: "Invigilator\n(VIT-AP)" },
+          { name: "Invigilator\n(CID)" },
           { name: "Candidate" },
         ];
 
@@ -446,7 +447,13 @@ export async function GET(req: Request) {
       cipher.final(),
     ]);
 
+
     fs.writeFileSync(mergedPdfFilePath, encryptedPdfBytes);
+
+   const mergedPdfBytes2 = await mergedPdf.save();
+    const mergedPdfFileName2 = `unecrypted_merged_${fetched_user.hallticket}.pdf`;
+    const mergedPdfFilePath2 = path.join(mergedPdfPath, mergedPdfFileName2);
+     fs.writeFileSync(mergedPdfFilePath2, mergedPdfBytes2);
 
     // Verify the merged PDF was saved correctly
     if (!fs.existsSync(mergedPdfFilePath)) {

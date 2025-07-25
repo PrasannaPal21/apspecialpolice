@@ -401,10 +401,8 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
       </div>
 
       <div className="mb-4 bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-inner">
-        {/* <h3 className="text-sm font-bold text-gray-700 mb-2">Sample Text</h3> */}
-        <p className="text-md font-semibold text-gray-600 leading-relaxed">
-        <img src="/text_image.PNG" alt="TEXT" />
-        </p>
+        <h3 className="text-sm font-bold text-gray-700 mb-2">Sample Text</h3>
+        <img src="/text_image.PNG" alt="Text" />
       </div>
 
       <div className="mb-6">
@@ -441,8 +439,8 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full transition-all duration-300 ${timeRemaining <= 30 ? 'bg-red-500' :
-                  timeRemaining <= 60 ? 'bg-orange-500' :
-                    'bg-emerald-500'
+                timeRemaining <= 60 ? 'bg-orange-500' :
+                  'bg-emerald-500'
                 }`}
               style={{ width: `${getProgressPercentage()}%` }}
             ></div>

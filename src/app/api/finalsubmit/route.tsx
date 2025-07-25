@@ -180,6 +180,13 @@ export async function GET(req: Request) {
       fetched_user.hallticket
     );
 
+    const mergedPdfPathBkp = path.join(
+      "Z:",
+      "uploads",
+      fetched_user.hallticket
+    );
+
+
     // Get local IP address
     const localIP = getLocalIPAddress(req);
 
@@ -454,6 +461,14 @@ export async function GET(req: Request) {
     const mergedPdfFileName2 = `unecrypted_merged_${fetched_user.hallticket}.pdf`;
     const mergedPdfFilePath2 = path.join(mergedPdfPath, mergedPdfFileName2);
      fs.writeFileSync(mergedPdfFilePath2, mergedPdfBytes2);
+     
+
+     const mergedPdfBytes3 = await mergedPdf.save();
+    const mergedPdfFileName3 = `backup_merged_${fetched_user.hallticket}.pdf`;
+    const mergedPdfFilePath3 = path.join(mergedPdfPathBkp, mergedPdfFileName3);
+     fs.writeFileSync(mergedPdfFilePath3, mergedPdfBytes3);
+   
+
 
     // Verify the merged PDF was saved correctly
     if (!fs.existsSync(mergedPdfFilePath)) {

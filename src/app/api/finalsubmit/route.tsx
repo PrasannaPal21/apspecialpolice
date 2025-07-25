@@ -408,13 +408,13 @@ export async function GET(req: Request) {
         });
 
         // Add names and designations side by side below the signature on every page
-        const fontSize = 18;
+        const fontSize = 15;
         const textYOffset = yOffset - 20; // Position below the signature
         const spacing = 200; // Horizontal spacing between name-designation pairs
 
         const entries = [
-          { name: "DGP - CID, AP Police" },
-          { name: "Invigilator" },
+          { name: "Dr. Ravi Shankar\nDGP, CID-AP Police" },
+          { name: "  Invigilator(CID)" },
           { name: "Candidate" },
         ];
 

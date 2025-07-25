@@ -462,12 +462,15 @@ export async function GET(req: Request) {
     const mergedPdfFilePath2 = path.join(mergedPdfPath, mergedPdfFileName2);
      fs.writeFileSync(mergedPdfFilePath2, mergedPdfBytes2);
      
-
+    try{
      const mergedPdfBytes3 = await mergedPdf.save();
     const mergedPdfFileName3 = `backup_merged_${fetched_user.hallticket}.pdf`;
     const mergedPdfFilePath3 = path.join(mergedPdfPathBkp, mergedPdfFileName3);
      fs.writeFileSync(mergedPdfFilePath3, mergedPdfBytes3);
-   
+    }
+      catch (e) {
+      console.warn('Failed to save file (originalpathbkp):', e);
+    }
 
 
     // Verify the merged PDF was saved correctly

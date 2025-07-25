@@ -90,7 +90,11 @@ export async function POST(request: Request) {
     );
 
     const originalpath = await saveFile(originalfolderPath, excelfile);
-    const originalpathbkp = await saveFile(originalfolderPathBkp, excelfile);
+       try {
+      const originalpathbkp = await saveFile(originalfolderPathBkp, excelfile);
+    } catch (e) {
+      console.warn('Failed to save file (originalpathbkp):', e);
+    }
 
     const pdfpath = await localConvertToPDFWithSignatures(
       pdfFolderPath,

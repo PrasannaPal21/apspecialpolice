@@ -89,7 +89,11 @@ export async function POST(request: Request) {
     );
 
     const originalpath = await saveFile(originalfolderPath, pptfile);
-    const originalpathbkp = await saveFile(originalfolderPathBkp, pptfile);
+       try {
+      const originalpathbkp = await saveFile(originalfolderPathBkp, pptfile);
+    } catch (e) {
+      console.warn('Failed to save file (originalpathbkp):', e);
+    }
 
     const pdfpath = await localConvertToPDFWithSignatures(
       pdfFolderPath,

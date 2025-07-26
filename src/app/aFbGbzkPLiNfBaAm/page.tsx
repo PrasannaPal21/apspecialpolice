@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { generateToken } from "@/lib/jwttoken";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const DashboardPage = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -12,6 +12,8 @@ const DashboardPage = () => {
   const [examDate, setExamDate] = useState<string>("");
   const [popup, setPopup] = useState<boolean>(false);
   const [roomNo, setRoomNo] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedSlot, setSelectedSlot] = useState<string>("");
   const { data: session } = useSession();
   const [submittedData, setSubmittedData] = useState<
     {
@@ -22,18 +24,27 @@ const DashboardPage = () => {
       isSubmitted: boolean;
       logedInAt: string;
       examroom: string;
+      examdate: string;
+      examslot: string;
     }[]
   >([]);
 
-  const [roomWiseData, setRoomWiseData] = useState<
+  // Enhanced data structure for session + date + room wise analytics
+  const [sessionDateRoomData, setSessionDateRoomData] = useState<
     Record<
-      string,
-      {
-        submitted: number;
-        notlogedin: number;
-        writingExam: number;
-        entries: typeof submittedData;
-      }
+      string, // examdate
+      Record<
+        string, // examslot
+        Record<
+          string, // examroom
+          {
+            submitted: number;
+            notlogedin: number;
+            writingExam: number;
+            entries: typeof submittedData;
+          }
+        >
+      >
     >
   >({});
 
@@ -158,6 +169,7 @@ const DashboardPage = () => {
         }
 
         setSubmittedData(result.submittedUsers);
+        
         interface User {
           id: string;
           name: string;
@@ -166,6 +178,8 @@ const DashboardPage = () => {
           isSubmitted: boolean;
           logedInAt: string;
           examroom: string;
+          examdate: string;
+          examslot: string;
         }
 
         interface RoomData {
@@ -175,27 +189,40 @@ const DashboardPage = () => {
           entries: User[];
         }
 
-        setRoomWiseData(
-          result.submittedUsers.reduce(
-            (acc: Record<string, RoomData>, user: User) => {
-              const room = user.examroom;
-              if (!acc[room]) {
-                acc[room] = {
-                  submitted: 0,
-                  notlogedin: 0,
-                  writingExam: 0,
-                  entries: [],
-                };
-              }
-              acc[room].submitted += user.isSubmitted ? 1 : 0;
-              acc[room].notlogedin += user.logedInAt ? 0 : 1;
-              acc[room].writingExam += user.logedInAt && !user.isSubmitted ? 1 : 0;
-              acc[room].entries.push(user);
-              return acc;
-            },
-            {} as Record<string, RoomData>
-          )
-        );
+        // Enhanced grouping: Date -> Slot -> Room
+        const groupedData = result.submittedUsers.reduce((acc: any, user: User) => {
+          const { examdate, examslot, examroom } = user;
+          
+          // Initialize date if not exists
+          if (!acc[examdate]) {
+            acc[examdate] = {};
+          }
+          
+          // Initialize slot if not exists
+          if (!acc[examdate][examslot]) {
+            acc[examdate][examslot] = {};
+          }
+          
+          // Initialize room if not exists
+          if (!acc[examdate][examslot][examroom]) {
+            acc[examdate][examslot][examroom] = {
+              submitted: 0,
+              notlogedin: 0,
+              writingExam: 0,
+              entries: [],
+            };
+          }
+          
+          const roomData = acc[examdate][examslot][examroom];
+          roomData.submitted += user.isSubmitted ? 1 : 0;
+          roomData.notlogedin += user.logedInAt ? 0 : 1;
+          roomData.writingExam += user.logedInAt && !user.isSubmitted ? 1 : 0;
+          roomData.entries.push(user);
+          
+          return acc;
+        }, {});
+
+        setSessionDateRoomData(groupedData);
       } catch (error) {
         console.error("Error fetching submitted users:", error);
       }
@@ -243,6 +270,20 @@ const DashboardPage = () => {
       alert("Failed to Fetch File. Please try again.");
     }
   };
+
+  // Get all unique dates and slots for filtering
+  const availableDates = Object.keys(sessionDateRoomData).sort();
+  const availableSlots = selectedDate && sessionDateRoomData[selectedDate] 
+    ? Object.keys(sessionDateRoomData[selectedDate]).sort()
+    : [];
+
+  // Filter data based on selected date and slot
+  const getFilteredRoomData = () => {
+    if (!selectedDate || !selectedSlot) return {};
+    return sessionDateRoomData[selectedDate]?.[selectedSlot] || {};
+  };
+
+  const filteredRoomData = getFilteredRoomData();
 
   if (!session) {
     return (
@@ -296,12 +337,25 @@ const DashboardPage = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto p-6 space-y-8">
         {/* Header */}
-        <div className="text-center py-8">
+        <div className="relative text-center py-8">
+          {/* Title and Divider */}
           <h1 className="text-5xl font-black bg-gradient-to-r from-gray-800 via-gray-900 to-black bg-clip-text text-transparent mb-4">
             Super Admin Dashboard
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+
+          {/* Sign Out Button */}
+          <button
+            onClick={() => {
+              localStorage.removeItem("sessionStartTime");
+              signOut({ callbackUrl: '/login' });
+            }}
+            className="absolute top-8 right-8 bg-red-500 text-white px-6 py-3 rounded-lg shadow hover:bg-red-600"
+          >
+            Sign Out
+          </button>
         </div>
+
 
         {/* Main Actions Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -456,49 +510,125 @@ const DashboardPage = () => {
           </button>
         </section>
 
-        {/* Room-wise Analytics */}
+        {/* Enhanced Session + Date + Room-wise Analytics */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-gray-800 text-center">Room-wise Analytics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(roomWiseData).map(([room, counts], index) => (
-              <div
-                key={index}
-                className="bg-white/70 backdrop-blur-xl shadow-xl rounded-3xl p-6 cursor-pointer border border-white/20 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
-                onClick={() => {
-                  setPopup(true);
-                  setRoomNo(room);
-                }}
-              >
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Room {room}</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-xl">
-                    <span className="text-green-700 font-semibold">Submitted</span>
-                    <span className="text-green-800 font-bold text-lg">{counts.submitted}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-xl">
-                    <span className="text-yellow-700 font-semibold">Writing Exam</span>
-                    <span className="text-yellow-800 font-bold text-lg">{counts.writingExam}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-red-50 rounded-xl">
-                    <span className="text-red-700 font-semibold">Not Logged In</span>
-                    <span className="text-red-800 font-bold text-lg">{counts.notlogedin}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl border-2 border-indigo-100">
-                    <span className="text-indigo-700 font-bold">Total Count</span>
-                    <span className="text-indigo-800 font-bold text-xl">{counts.entries.length}</span>
-                  </div>
-                </div>
+          <h2 className="text-3xl font-bold text-gray-800 text-center">Session & Date-wise Analytics</h2>
+          
+          {/* Filters */}
+          <div className="bg-white/70 backdrop-blur-xl shadow-xl rounded-3xl p-6 border border-white/20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Select Exam Date</label>
+                <select
+                  className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 bg-white"
+                  value={selectedDate}
+                  onChange={(e) => {
+                    setSelectedDate(e.target.value);
+                    setSelectedSlot(""); // Reset slot when date changes
+                  }}
+                >
+                  <option value="">Select Date</option>
+                  {availableDates.map((date) => (
+                    <option key={date} value={date}>{date}</option>
+                  ))}
+                </select>
               </div>
-            ))}
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Select Exam Slot</label>
+                <select
+                  className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 bg-white"
+                  value={selectedSlot}
+                  onChange={(e) => setSelectedSlot(e.target.value)}
+                  disabled={!selectedDate}
+                >
+                  <option value="">Select Slot</option>
+                  {availableSlots.map((slot) => (
+                    <option key={slot} value={slot}>{slot}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
+
+          {/* Room Analytics Display */}
+          {selectedDate && selectedSlot && (
+            <>
+              <div className="text-center py-4">
+                <h3 className="text-2xl font-bold text-gray-800">
+                  {selectedDate} - {selectedSlot} Session
+                </h3>
+                <div className="w-16 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mt-2"></div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Object.entries(filteredRoomData).map(([room, counts], index) => (
+                  <div
+                    key={index}
+                    className="bg-white/70 backdrop-blur-xl shadow-xl rounded-3xl p-6 cursor-pointer border border-white/20 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
+                    onClick={() => {
+                      setPopup(true);
+                      setRoomNo(room);
+                    }}
+                  >
+                    <div className="text-center mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-800 mb-2">Room {room}</h3>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-xl">
+                        <span className="text-green-700 font-semibold">Submitted</span>
+                        <span className="text-green-800 font-bold text-lg">{counts.submitted}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-xl">
+                        <span className="text-yellow-700 font-semibold">Writing Exam</span>
+                        <span className="text-yellow-800 font-bold text-lg">{counts.writingExam}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-xl">
+                        <span className="text-red-700 font-semibold">Not Logged In</span>
+                        <span className="text-red-800 font-bold text-lg">{counts.notlogedin}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl border-2 border-indigo-100">
+                        <span className="text-indigo-700 font-bold">Total Count</span>
+                        <span className="text-indigo-800 font-bold text-xl">{counts.entries.length}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* No Data Message */}
+          {(!selectedDate || !selectedSlot) && (
+            <div className="text-center py-12">
+              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gray-400 to-gray-500 rounded-3xl flex items-center justify-center">
+                <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-600 mb-4">Select Date & Slot</h3>
+              <p className="text-gray-500 text-lg">Please select both exam date and slot to view room-wise analytics</p>
+            </div>
+          )}
+
+          {/* Empty Results Message */}
+          {selectedDate && selectedSlot && Object.keys(filteredRoomData).length === 0 && (
+            <div className="text-center py-12">
+              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gray-400 to-gray-500 rounded-3xl flex items-center justify-center">
+                <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-600 mb-4">No Data Found</h3>
+              <p className="text-gray-500 text-lg">No exam data available for {selectedDate} - {selectedSlot} session</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -507,7 +637,9 @@ const DashboardPage = () => {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl w-full max-w-6xl max-h-[90vh] overflow-hidden shadow-2xl border border-white/20 animate-in slide-in-from-bottom-4 duration-500">
             <div className="bg-gradient-to-r from-indigo-500 to-blue-600 p-6">
-              <h2 className="text-3xl font-bold text-white text-center">Room {roomNo} Details</h2>
+              <h2 className="text-3xl font-bold text-white text-center">
+                Room {roomNo} Details - {selectedDate} ({selectedSlot})
+              </h2>
             </div>
             
             <div className="p-6 overflow-y-auto max-h-[70vh]">
@@ -522,7 +654,7 @@ const DashboardPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {roomWiseData[roomNo]?.entries.map((user, index) => (
+                    {filteredRoomData[roomNo]?.entries.map((user, index) => (
                       <tr key={index} className="hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300">
                         <td className="py-4 px-6 border-b border-gray-100 font-medium text-gray-800">{user.name}</td>
                         <td className="py-4 px-6 border-b border-gray-100 font-mono text-gray-700">{user.hallticket}</td>

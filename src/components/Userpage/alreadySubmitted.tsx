@@ -39,6 +39,19 @@ export default function AlreadySubmitted({
     }
   };
 
+  
+  const TIMER_STATE_KEY = "typing_timer_state";
+  const SESSION_ID_KEY = "typing_session_id";
+
+  const clearTimerState = () => {
+    try {
+      localStorage.removeItem(TIMER_STATE_KEY);
+      localStorage.removeItem(SESSION_ID_KEY);
+    } catch (error) {
+      console.error("Failed to clear timer state:", error);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -58,6 +71,7 @@ export default function AlreadySubmitted({
         <button
           onClick={() => {
             localStorage.removeItem("sessionStartTime");
+            clearTimerState();
             signOut();
           }}
           className="bg-red-500 text-white px-6 py-3 rounded-lg shadow hover:bg-red-600"

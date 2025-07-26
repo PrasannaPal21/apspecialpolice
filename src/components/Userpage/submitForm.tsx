@@ -159,11 +159,25 @@ export const FormSubmit = ({
     }
   };
 
+  const TIMER_STATE_KEY = "typing_timer_state";
+  const SESSION_ID_KEY = "typing_session_id";
+
+  const clearTimerState = () => {
+    try {
+      localStorage.removeItem(TIMER_STATE_KEY);
+      localStorage.removeItem(SESSION_ID_KEY);
+    } catch (error) {
+      console.error("Failed to clear timer state:", error);
+    }
+  };
+
   // Handle success confirmation and sign out
   const handleSuccessConfirmation = async () => {
     setShowSuccessPopup(false);
     // Sign out user after confirmation
-    await signOut(); // No callbackUrl = default NextAuth sign-out
+    await signOut({ callbackUrl: '/login' }); // No callbackUrl = default NextAuth sign-out
+    localStorage.removeItem("sessionStartTime");
+    clearTimerState();
   };
 
   const getFileIcon = (type: string) => {
@@ -239,8 +253,8 @@ export const FormSubmit = ({
           </div>
         </form>
       ) : (
-        <TextArea 
-          setMessage={setMessage} 
+        <TextArea
+          setMessage={setMessage}
           setSubmitStatus={handleTextSubmissionComplete} // Pass the modified callback
         />
       )}
@@ -296,8 +310,8 @@ export const FormSubmit = ({
                 <div>
                   <h3 className="text-xl font-bold">Submission Review</h3>
                   <p className="text-blue-100 text-sm">
-                    {hasAnyFileUploaded() 
-                      ? `${getUploadedFilesCount()} of 3 files uploaded` 
+                    {hasAnyFileUploaded()
+                      ? `${getUploadedFilesCount()} of 3 files uploaded`
                       : "No files uploaded"}
                   </p>
                 </div>

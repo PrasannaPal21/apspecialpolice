@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { generateToken } from "@/lib/jwttoken";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Download, Printer, Users, FileText, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 
 const DashboardPage = () => {
@@ -73,7 +73,7 @@ const DashboardPage = () => {
   // Queue-based printing system
   const printAllResponsesQueue = async () => {
     const submittedResponses = submittedData.filter(data => data.mergedPdfUrl && data.isSubmitted);
-    
+
     if (submittedResponses.length === 0) {
       alert("No submitted responses available to print.");
       return;
@@ -90,19 +90,19 @@ const DashboardPage = () => {
 
   const processQueue = async (queue: any[]) => {
     let printWindow: Window | null = null;
-    
+
     try {
       for (let i = 0; i < queue.length; i++) {
         const data = queue[i];
         setPrintProgress({ current: i + 1, total: queue.length });
         setCurrentPrintItem(`${data.name} (${data.hallticket})`);
-        
+
         try {
           // Fetch the file
           const formData = new FormData();
           formData.append("filePath", data.mergedPdfUrl);
           formData.append("hallticket", data.hallticket);
-          
+
           const token = generateToken(
             {
               user: session?.user,
@@ -121,7 +121,7 @@ const DashboardPage = () => {
           if (response.ok) {
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
-            
+
             // If this is the first item or previous window was closed, open new window
             if (!printWindow || printWindow.closed) {
               printWindow = window.open('', '_blank', 'width=800,height=600');
@@ -129,11 +129,11 @@ const DashboardPage = () => {
                 throw new Error('Unable to open print window. Please allow popups.');
               }
             }
-            
+
             // Load PDF in the same window
             printWindow.location.href = url;
             printWindow.focus();
-            
+
             // Wait for PDF to load and trigger print
             await new Promise<void>((resolve) => {
               const checkLoad = () => {
@@ -150,16 +150,16 @@ const DashboardPage = () => {
                   console.log('Print window access error (expected for cross-origin)');
                 }
               };
-              
+
               setTimeout(checkLoad, 1000);
-              
+
               // Wait for user interaction (either print completion or manual skip)
               setTimeout(() => {
                 URL.revokeObjectURL(url);
                 resolve();
               }, 5000); // 5 seconds per document
             });
-            
+
           } else {
             console.error(`Failed to fetch file for ${data.hallticket}`);
           }
@@ -167,12 +167,12 @@ const DashboardPage = () => {
           console.error(`Error processing ${data.hallticket}:`, error);
         }
       }
-      
+
       // Close the print window after all items are processed
       if (printWindow && !printWindow.closed) {
         printWindow.close();
       }
-      
+
       alert(`Completed printing process for ${queue.length} responses.`);
     } catch (error) {
       console.error("Error during bulk printing:", error);
@@ -188,7 +188,7 @@ const DashboardPage = () => {
   // Download all responses
   const downloadAllResponses = async () => {
     const submittedResponses = submittedData.filter(data => data.mergedPdfUrl && data.isSubmitted);
-    
+
     if (submittedResponses.length === 0) {
       alert("No submitted responses available to download.");
       return;
@@ -203,11 +203,11 @@ const DashboardPage = () => {
         const data = submittedResponses[i];
         setPrintProgress({ current: i + 1, total: submittedResponses.length });
         setCurrentPrintItem(`${data.name} (${data.hallticket})`);
-        
+
         const formData = new FormData();
         formData.append("filePath", data.mergedPdfUrl);
         formData.append("hallticket", data.hallticket);
-        
+
         const token = generateToken(
           {
             user: session?.user,
@@ -226,7 +226,7 @@ const DashboardPage = () => {
         if (response.ok) {
           const blob = await response.blob();
           const url = URL.createObjectURL(blob);
-          
+
           // Download each file
           const link = document.createElement("a");
           link.href = url;
@@ -234,16 +234,16 @@ const DashboardPage = () => {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          
+
           URL.revokeObjectURL(url);
-          
+
           // Small delay between downloads
           await new Promise(resolve => setTimeout(resolve, 800));
         } else {
           console.error(`Failed to fetch file for ${data.hallticket}`);
         }
       }
-      
+
       alert(`Successfully downloaded ${submittedResponses.length} responses.`);
     } catch (error) {
       console.error("Error during bulk download:", error);
@@ -317,12 +317,23 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Exam Dashboard</h1>
-          <p className="text-gray-600">Monitor and manage exam submissions</p>
+        <div className="mb-8 flex justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Exam Dashboard</h1>
+            <p className="text-gray-600">Monitor and manage exam submissions</p>
+          </div>
+          <button
+            onClick={() => {
+              localStorage.removeItem("sessionStartTime");
+              signOut();
+            }}
+            className="bg-red-500 text-white px-6 py-3 rounded-lg shadow hover:bg-red-600 h-3/4"
+          >
+            Sign Out
+          </button>
         </div>
 
         {/* Stats Cards */}
@@ -380,29 +391,27 @@ const DashboardPage = () => {
                 <p className="text-sm text-gray-600">Manage and download student responses</p>
               </div>
             </div>
-            
+
             <div className="flex space-x-3">
               <button
                 onClick={downloadAllResponses}
                 disabled={isPrinting || submittedCount === 0}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  isPrinting || submittedCount === 0
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${isPrinting || submittedCount === 0
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-blue-600 text-white hover:bg-green-600 shadow-md hover:shadow-lg transform hover:scale-105'
-                }`}
+                  }`}
               >
                 <Download className="w-4 h-4" />
                 <span>Download All</span>
               </button>
-              
+
               <button
                 onClick={printAllResponsesQueue}
                 disabled={isPrinting || submittedCount === 0}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                  isPrinting || submittedCount === 0
+                className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 ${isPrinting || submittedCount === 0
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-blue-600 text-white hover:bg-green-600 shadow-md hover:shadow-lg transform hover:scale-105'
-                }`}
+                  }`}
               >
                 {isPrinting ? (
                   <>
@@ -442,7 +451,7 @@ const DashboardPage = () => {
                 {submittedData.map((data, index) => {
                   const statusInfo = getStatusInfo(data);
                   const StatusIcon = statusInfo.icon;
-                  
+
                   return (
                     <tr key={index} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -515,11 +524,11 @@ const DashboardPage = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {printQueue.length > 0 ? 'Printing Responses' : 'Processing Responses'}
                 </h3>
-                
+
                 <p className="text-gray-600 mb-6">
                   Processing {printProgress.current} of {printProgress.total} responses
                 </p>
@@ -532,12 +541,12 @@ const DashboardPage = () => {
                 )}
 
                 <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-                  <div 
+                  <div
                     className="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500 ease-out"
                     style={{ width: `${(printProgress.current / printProgress.total) * 100}%` }}
                   ></div>
                 </div>
-                
+
                 <div className="flex justify-between text-sm text-gray-500 mb-6">
                   <span>{printProgress.current} completed</span>
                   <span>{printProgress.total - printProgress.current} remaining</span>
@@ -549,7 +558,7 @@ const DashboardPage = () => {
                     <div className="text-sm text-yellow-800">
                       <p className="font-medium mb-1">Please note:</p>
                       <p>
-                        {printQueue.length > 0 
+                        {printQueue.length > 0
                           ? 'Each PDF will automatically open the print dialog. Using a single browser tab to avoid overwhelming your browser.'
                           : 'Files are being downloaded to your Downloads folder automatically.'
                         }

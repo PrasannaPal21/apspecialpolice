@@ -34,7 +34,7 @@ export async function GET(req: Request) {
 
     const fetched_user = await prisma.user.findUnique({
       where: { hallticket: user.hallticket },
-      select: { role: true, examroom: true, examslot: true },
+      select: { role: true, examroom: true, examslot: true, examdate: true },
     });
 
     if (
@@ -59,6 +59,7 @@ export async function GET(req: Request) {
       }
       userFilter.examroom = fetched_user.examroom;
       userFilter.examslot = fetched_user.examslot;
+      userFilter.examdate = fetched_user.examdate;
     }
 
     const enrichedSubmittedUsers = await prisma.user.findMany({

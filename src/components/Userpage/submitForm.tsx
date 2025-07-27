@@ -124,45 +124,43 @@ export const FormSubmit = ({
       60 * 2 // Token valid for 2 minutes
     );
 
-  //   try {
-  //     const response = await fetch("/api/finalsubmit", {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
+    try {
+       const response = await fetch("/api/finalsubmit", {
+         method: "GET",
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error("Final submission failed");
-  //     }
+      // if (!response.ok) {
+      //   throw new Error("Final submission failed");
+      // }
 
-  //     const result = await response.blob();
-  //     const url = URL.createObjectURL(result);
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.download = `${session.user.hallticket}.pdf`;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //     URL.revokeObjectURL(url);
+      // const result = await response.blob();
+      // const url = URL.createObjectURL(result);
+      // const link = document.createElement("a");
+      // link.href = url;
+      // link.download = `${session.user.hallticket}.pdf`;
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      // URL.revokeObjectURL(url);
 
-  //     setMessage("Submitted Successfully!");
-  //     setShowPopup(false);
+      setMessage("Submitted Successfully!");
+      setShowPopup(false);
 
-  //     // Show success confirmation popup before signing out
-  //     setShowSuccessPopup(true);
-  //   } catch (error: any) {
-  //     console.error("Error during final submission:", error);
-  //     setMessage(`Error: ${error.message}`);
-  //   } finally {
-  //     setLoading(false);
-  //   }
+      // Show success confirmation popup before signing out
+      setShowSuccessPopup(true);
+    } catch (error: any) {
+      console.error("Error during final submission:", error);
+      setMessage(`Error: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const TIMER_STATE_KEY = "typing_timer_state";
   const SESSION_ID_KEY = "typing_session_id";
-
-  setShowSuccessPopup(true);
 
   const clearTimerState = () => {
     try {

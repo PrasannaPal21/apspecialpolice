@@ -13,10 +13,10 @@ const ContentSecurityPolicy = `
 `;
 
 const securityHeaders = [
-  {
-    key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\n/g, ''), // remove line breaks for header
-  },
+  // {
+  //   key: 'Content-Security-Policy',
+  //   value: ContentSecurityPolicy.replace(/\n/g, ''), // remove line breaks for header
+  // },
   {
     key: 'X-Content-Type-Options',
     value: 'nosniff',

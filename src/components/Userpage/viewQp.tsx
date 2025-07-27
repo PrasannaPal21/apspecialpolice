@@ -45,25 +45,29 @@ export default function QPViewer({
       setMessage("Error fetching paper.");
     }
   };
-
   return (
     <div className="flex-1 flex justify-center items-center border-r border-gray-300">
-      {url ? (
-        <iframe src={url} className="w-full h-full" />
-      ) : (
-        <div className="text-center">
-          <p className="text-gray-600">
-            {message || "Question paper not available."}
-          </p>
-          <button
-            onClick={fetchQuestionPaper}
-            disabled={!session}
-            className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg"
-          >
-            Fetch Question Paper
-          </button>
-        </div>
-      )}
+      <iframe src="http://172.18.8.10/qp.pdf" className="w-full h-full" />
     </div>
-  );
+  )
+  // return (
+  //   <div className="flex-1 flex justify-center items-center border-r border-gray-300">
+  //     {url ? (
+  //       <iframe src={url} className="w-full h-full" />
+  //     ) : (
+  //       <div className="text-center">
+  //         <p className="text-gray-600">
+  //           {message || "Question paper not available."}
+  //         </p>
+  //         <button
+  //           onClick={fetchQuestionPaper}
+  //           disabled={!session}
+  //           className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg"
+  //         >
+  //           Fetch Question Paper
+  //         </button>
+  //       </div>
+  //     )}
+  //   </div>
+  // );
 }

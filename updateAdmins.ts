@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
 async function main() {
   const updated = await prisma.user.updateMany({
     where: {
-      name: {
-        startsWith: 'ADMIN',
+      isLoggedIn: {
+        equals: true,
       },
     },
     data: {
-      role: Role.ADMIN,
+      isLoggedIn: false,
     },
   });
 

@@ -47,7 +47,7 @@ export default function QPViewer({
   };
   return (
     <div className="flex-1 flex justify-center items-center border-r border-gray-300">
-      <iframe src="http://172.18.8.10/qp.pdf" className="w-full h-full" />
+      <img src="/image.png" className="w-full h-full" title="Question Paper"/>
     </div>
   )
   // return (

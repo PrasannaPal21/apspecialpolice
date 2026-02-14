@@ -197,7 +197,7 @@ export async function GET(req: Request) {
     for (const [index, pdfFile] of availablePdfPaths.entries()) {
       try {
         const pdfBytes = fs.readFileSync(pdfFile);
-        const pdfDoc = await PDFDocument.load(pdfBytes);
+        const pdfDoc = await PDFDocumentn  n.load(pdfBytes);
         const copiedPages = await mergedPdf.copyPages(
           pdfDoc,
           pdfDoc.getPageIndices()

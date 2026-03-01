@@ -108,54 +108,64 @@ export async function GET(req: Request) {
       orderBy: { createdAt: "desc" },
     });
 
-    // Create arrays of available files only
-    const availableFiles = [];
-    const availableOriginalPaths = [];
-    const availablePdfPaths = [];
-    const availableFileNames = [];
+    const englishSectionAnswers = await prisma.englishSectionAnswer.findMany({
+      where: { userId: fetched_user.id },
+    });
+    const englishGrammar = englishSectionAnswers.find((a) => a.section === "GRAMMAR");
+    const englishTranslation = englishSectionAnswers.find((a) => a.section === "TRANSLATION");
 
-    if (
-      excelfile &&
-      fs.existsSync(excelfile.oexcelurl) &&
-      fs.existsSync(excelfile.pexcelurl)
-    ) {
-      availableFiles.push({ type: "Excel", file: excelfile });
-      availableOriginalPaths.push(excelfile.oexcelurl);
-      availablePdfPaths.push(excelfile.pexcelurl);
-      availableFileNames.push(path.basename(excelfile.oexcelurl));
+    const availableFiles: { type: string }[] = [];
+    const availableOriginalPaths: string[] = [];
+    const availablePdfPaths: string[] = [];
+    const availableFileNames: string[] = [];
+
+    const pushPdf = (
+      type: string,
+      origPath: string,
+      pdfPath: string,
+    ) => {
+      if (fs.existsSync(origPath) && fs.existsSync(pdfPath)) {
+        availableFiles.push({ type });
+        availableOriginalPaths.push(origPath);
+        availablePdfPaths.push(pdfPath);
+        availableFileNames.push(path.basename(origPath));
+      }
+    };
+
+    // Merge order: English grammar → English translation → Typing → Word → Excel → PPT
+    if (englishGrammar) {
+      pushPdf("English Grammar", englishGrammar.otexturl, englishGrammar.ptexturl);
     }
-
-    if (
-      pptfile &&
-      fs.existsSync(pptfile.oppturl) &&
-      fs.existsSync(pptfile.pppturl)
-    ) {
-      availableFiles.push({ type: "PowerPoint", file: pptfile });
-      availableOriginalPaths.push(pptfile.oppturl);
-      availablePdfPaths.push(pptfile.pppturl);
-      availableFileNames.push(path.basename(pptfile.oppturl));
+    if (englishTranslation) {
+      pushPdf("English Translation", englishTranslation.otexturl, englishTranslation.ptexturl);
     }
-
-    if (
-      wordfile &&
-      fs.existsSync(wordfile.owordurl) &&
-      fs.existsSync(wordfile.pwordurl)
-    ) {
-      availableFiles.push({ type: "Word", file: wordfile });
-      availableOriginalPaths.push(wordfile.owordurl);
-      availablePdfPaths.push(wordfile.pwordurl);
-      availableFileNames.push(path.basename(wordfile.owordurl));
-    }
-
     if (
       textfile &&
       fs.existsSync(textfile.otexturl) &&
       fs.existsSync(textfile.ptexturl)
     ) {
-      availableFiles.push({ type: "Text", file: textfile });
-      availableOriginalPaths.push(textfile.otexturl);
-      availablePdfPaths.push(textfile.ptexturl);
-      availableFileNames.push(path.basename(textfile.otexturl));
+      pushPdf("Text", textfile.otexturl, textfile.ptexturl);
+    }
+    if (
+      wordfile &&
+      fs.existsSync(wordfile.owordurl) &&
+      fs.existsSync(wordfile.pwordurl)
+    ) {
+      pushPdf("Word", wordfile.owordurl, wordfile.pwordurl);
+    }
+    if (
+      excelfile &&
+      fs.existsSync(excelfile.oexcelurl) &&
+      fs.existsSync(excelfile.pexcelurl)
+    ) {
+      pushPdf("Excel", excelfile.oexcelurl, excelfile.pexcelurl);
+    }
+    if (
+      pptfile &&
+      fs.existsSync(pptfile.oppturl) &&
+      fs.existsSync(pptfile.pppturl)
+    ) {
+      pushPdf("PowerPoint", pptfile.oppturl, pptfile.pppturl);
     }
 
     // Check if at least one file is available for submission
@@ -197,7 +207,7 @@ export async function GET(req: Request) {
     for (const [index, pdfFile] of availablePdfPaths.entries()) {
       try {
         const pdfBytes = fs.readFileSync(pdfFile);
-        const pdfDoc = await PDFDocumentn  n.load(pdfBytes);
+        const pdfDoc = await PDFDocument.load(pdfBytes);
         const copiedPages = await mergedPdf.copyPages(
           pdfDoc,
           pdfDoc.getPageIndices()
@@ -437,12 +447,29 @@ export async function GET(req: Request) {
     const mergedPdfFileName = `merged_${fetched_user.hallticket}.pdf`;
     const mergedPdfFilePath = path.join(mergedPdfPath, mergedPdfFileName);
 
-    // Encrypt the PDF bytes using provided encryption parameters
-    const encryptionKey = Buffer.from(process.env.ENCRYPTION_KEY || "", "hex");
-    const encryptionIv = Buffer.from(process.env.ENCRYPTION_IV || "", "hex");
+    const encryptionKeyHex = process.env.ENCRYPTION_KEY || "";
+    const encryptionIvHex = process.env.ENCRYPTION_IV || "";
     const encryptionAlgorithm =
       process.env.ENCRYPTION_ALGORITHM || "aes-256-cbc";
 
+    if (
+      !encryptionKeyHex ||
+      !encryptionIvHex ||
+      encryptionKeyHex.length !== 64 ||
+      encryptionIvHex.length !== 32 ||
+      !/^[0-9a-fA-F]+$/.test(encryptionKeyHex) ||
+      !/^[0-9a-fA-F]+$/.test(encryptionIvHex)
+    ) {
+      return NextResponse.json(
+        {
+          error: "Missing or invalid ENCRYPTION_KEY or ENCRYPTION_IV. Set both in .env (64 and 32 hex chars for aes-256-cbc).",
+        },
+        { status: 500 }
+      );
+    }
+
+    const encryptionKey = Buffer.from(encryptionKeyHex, "hex");
+    const encryptionIv = Buffer.from(encryptionIvHex, "hex");
     const cipher = createCipheriv(
       encryptionAlgorithm,
       encryptionKey,
@@ -452,8 +479,6 @@ export async function GET(req: Request) {
       cipher.update(mergedPdfBytes),
       cipher.final(),
     ]);
-
-
     fs.writeFileSync(mergedPdfFilePath, encryptedPdfBytes);
 
    const mergedPdfBytes2 = await mergedPdf.save();
@@ -461,14 +486,19 @@ export async function GET(req: Request) {
     const mergedPdfFilePath2 = path.join(mergedPdfPath, mergedPdfFileName2);
      fs.writeFileSync(mergedPdfFilePath2, mergedPdfBytes2);
      
-    try{
-     const mergedPdfBytes3 = await mergedPdf.save();
-    const mergedPdfFileName3 = `backup_merged_${fetched_user.hallticket}.pdf`;
-    const mergedPdfFilePath3 = path.join(mergedPdfPathBkp, mergedPdfFileName3);
-     fs.writeFileSync(mergedPdfFilePath3, mergedPdfBytes3);
-    }
-      catch (e) {
-      console.warn('Failed to save file (originalpathbkp):', e);
+    const backupRoot = path.parse(mergedPdfPathBkp).root;
+    if (backupRoot && fs.existsSync(backupRoot)) {
+      try {
+        const mergedPdfBytes3 = await mergedPdf.save();
+        const mergedPdfFileName3 = `backup_merged_${fetched_user.hallticket}.pdf`;
+        const mergedPdfFilePath3 = path.join(mergedPdfPathBkp, mergedPdfFileName3);
+        if (!fs.existsSync(mergedPdfPathBkp)) {
+          fs.mkdirSync(mergedPdfPathBkp, { recursive: true });
+        }
+        fs.writeFileSync(mergedPdfFilePath3, mergedPdfBytes3);
+      } catch (e) {
+        console.warn("Failed to save backup merged PDF:", e);
+      }
     }
 
 
@@ -516,19 +546,18 @@ export async function GET(req: Request) {
       },
     });
 
-    // Decrypt and return the PDF
     const encryptedFileBuffer = fs.readFileSync(mergedPdfFilePath);
     const decipher = createDecipheriv(
       encryptionAlgorithm,
       encryptionKey,
       encryptionIv
     );
-    const fileBuffer = Buffer.concat([
+    const finalPdfBytes = Buffer.concat([
       decipher.update(encryptedFileBuffer),
       decipher.final(),
     ]);
 
-    return new Response(fileBuffer, {
+    return new Response(finalPdfBytes, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",

@@ -3,50 +3,66 @@ import { generateToken } from "@/lib/jwttoken";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { TextArea } from "./textArea";
+import { EnglishSectionArea } from "./EnglishSectionArea";
 import { signOut } from "next-auth/react";
 import { ExcelFile, PPTFile, WordFile } from "./filesUpload";
 import { FileText, FileSpreadsheet, Presentation, CheckCircle, X, Upload } from 'lucide-react';
 
 export const FormSubmit = ({
   setMessage,
-  onTextSubmitted, // Add callback prop
+  onTextSubmitted,
 }: {
   setMessage: React.Dispatch<React.SetStateAction<string>>;
-  onTextSubmitted?: () => void; // Optional callback when text is submitted
+  onTextSubmitted?: () => void;
 }) => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [submitstatus, setSubmitStatus] = useState(false);
   const [submittedData, setSubmittedData] = useState<any>(null);
   const [showPopup, setShowPopup] = useState(false);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // New state for success popup
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [englishStatus, setEnglishStatus] = useState<{ grammar: boolean; translation: boolean } | null>(null);
+
+  const englishComplete = englishStatus?.grammar && englishStatus?.translation;
+
+  useEffect(() => {
+    if (!session) return;
+
+    const fetchEnglishStatus = async () => {
+      const token = generateToken({ user: session.user }, 60 * 2);
+      try {
+        const res = await fetch("/api/submitstatus/english", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setEnglishStatus({ grammar: data.grammar ?? false, translation: data.translation ?? false });
+        } else {
+          setEnglishStatus({ grammar: false, translation: false });
+        }
+      } catch {
+        setEnglishStatus({ grammar: false, translation: false });
+      }
+    };
+
+    fetchEnglishStatus();
+  }, [session]);
 
   useEffect(() => {
     if (!session) return;
 
     const fetchSubmissionStatus = async () => {
-      const token = generateToken(
-        {
-          user: session?.user,
-        },
-        60 * 2 // Token valid for 2 minutes
-      );
-
+      const token = generateToken({ user: session?.user }, 60 * 2);
       try {
         const response = await fetch("/api/submitstatus/text", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.status === 400) {
           setSubmitStatus(true);
-          // setMessage("You have already submitted the Text.");
-          // Call the callback to notify parent that text is submitted
-          if (onTextSubmitted) {
-            onTextSubmitted();
-          }
+          if (onTextSubmitted) onTextSubmitted();
           return;
         }
 
@@ -60,13 +76,27 @@ export const FormSubmit = ({
     };
 
     fetchSubmissionStatus();
-  }, [session, setMessage, onTextSubmitted]);
+  }, [session, onTextSubmitted]);
 
   const handleTextSubmissionComplete = () => {
     setSubmitStatus(true);
-    // Call the callback to notify parent that text is submitted
-    if (onTextSubmitted) {
-      onTextSubmitted();
+    if (onTextSubmitted) onTextSubmitted();
+  };
+
+  const refreshEnglishStatus = async () => {
+    if (!session) return;
+    const token = generateToken({ user: session.user }, 60 * 2);
+    try {
+      const res = await fetch("/api/submitstatus/english", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setEnglishStatus({ grammar: data.grammar ?? false, translation: data.translation ?? false });
+      }
+    } catch {
+      // keep current state
     }
   };
 
@@ -230,10 +260,31 @@ export const FormSubmit = ({
 
   return (
     <div className="flex-1 p-5">
-      {submitstatus ? (
+      {!englishComplete ? (
+        <div className="mb-5 pb-10">
+          <div className="py-2 bg-violet-100 rounded-2xl shadow-lg my-5">
+            <h2 className="text-2xl font-semibold text-violet-800 text-center">Section 1: English Proficiency and Drafting</h2>
+          </div>
+          <p className="text-sm text-gray-600 mb-4">Complete both parts below, then you will proceed to Section 2 (Typing & Office).</p>
+          <EnglishSectionArea
+            section="GRAMMAR"
+            label="a. English grammar – written test (20 marks)"
+            disabled={englishStatus?.grammar ?? false}
+            setMessage={setMessage}
+            onSubmitted={refreshEnglishStatus}
+          />
+          <EnglishSectionArea
+            section="TRANSLATION"
+            label="b. Telugu to English translation (20 marks)"
+            disabled={englishStatus?.translation ?? false}
+            setMessage={setMessage}
+            onSubmitted={refreshEnglishStatus}
+          />
+        </div>
+      ) : submitstatus ? (
         <form onSubmit={handleSubmit} className="mb-5 pb-10">
-          <div className=" py-2 bg-gray-100 rounded-2xl shadow-lg my-5">
-            <h2 className="text-2xl font-semibold text-gray-800 text-center">Section 2</h2>
+          <div className="py-2 bg-gray-100 rounded-2xl shadow-lg my-5">
+            <h2 className="text-2xl font-semibold text-gray-800 text-center">Section 2: Office</h2>
           </div>
           <h3 className="text-lg font-semibold mb-3">Upload Files</h3>
           <p className="text-sm text-gray-600 mb-4">You can upload any combination of files. All files are optional.</p>
@@ -242,7 +293,6 @@ export const FormSubmit = ({
             <WordFile setMessage={setMessage} />
             <PPTFile setMessage={setMessage} />
           </div>
-          {/* Bottom part: Submit button */}
           <div className="flex justify-end mt-5">
             <button
               type="submit"
@@ -253,10 +303,15 @@ export const FormSubmit = ({
           </div>
         </form>
       ) : (
-        <TextArea
-          setMessage={setMessage}
-          setSubmitStatus={handleTextSubmissionComplete} // Pass the modified callback
-        />
+        <>
+          <div className="py-2 bg-green-100 rounded-2xl shadow-lg my-5">
+            <h2 className="text-2xl font-semibold text-green-800 text-center">Section 2: Office – Typing speed (10 marks)</h2>
+          </div>
+          <TextArea
+            setMessage={setMessage}
+            setSubmitStatus={handleTextSubmissionComplete}
+          />
+        </>
       )}
 
       {/* Success Confirmation Popup */}

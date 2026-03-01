@@ -32,14 +32,39 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
             <div className="relative z-10">
               <Monitor className="w-16 h-16 mx-auto mb-4 opacity-90" />
               <h1 className="text-4xl font-bold mb-2">Computer Skill Test</h1>
-              <p className="text-blue-100 text-lg">Digital Assessment Platform</p>
+              <p className="text-blue-100 text-lg">English Proficiency, Drafting & Office</p>
             </div>
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full"></div>
           </div>
 
           <div className="p-8 space-y-8">
-            {/* Test Components */}
+            {/* Section 1: English Proficiency and Drafting */}
+            <div className="bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-200 rounded-xl p-6 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="bg-violet-500 rounded-full p-3 mr-4">
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-violet-800">Section 1: English Proficiency and Drafting (40 marks)</h2>
+                  <span className="inline-block bg-violet-100 text-violet-700 text-xs font-medium px-2 py-1 rounded-full mt-1">
+                    Type your answers in the browser
+                  </span>
+                </div>
+              </div>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-start">
+                  <CheckCircle className="w-4 h-4 text-violet-500 mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>a.</strong> Written test on English grammar (20 marks)</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="w-4 h-4 text-violet-500 mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>b.</strong> Telugu to English translation (20 marks)</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Section 2: Office */}
             <div className="grid md:grid-cols-2 gap-6">
               {/* Typing Speed Test */}
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
@@ -48,9 +73,9 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                     <Keyboard className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-green-800">1. Typing Speed Test</h2>
+                    <h2 className="text-xl font-bold text-green-800">Section 2: Office (40 marks)</h2>
                     <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-full mt-1">
-                      First Component
+                      c. Typing speed (10 marks)
                     </span>
                   </div>
                 </div>
@@ -63,10 +88,6 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
                     <span>Follow on-screen instructions carefully</span>
                   </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                    <span>Complete within the given time limit</span>
-                  </li>
                 </ul>
               </div>
 
@@ -77,52 +98,34 @@ const ExamInstructions: React.FC<ExamInstructionsProps> = ({ onProceed }) => {
                     <FileText className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-blue-800">2. MS Office Tasks</h2>
+                    <h2 className="text-xl font-bold text-blue-800">Section 2 (continued)</h2>
                     <span className="inline-block bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full mt-1">
-                      Three Applications
+                      a. Written test – Word, Excel, PowerPoint (10 marks) · b. Letter drafting (20 marks)
                     </span>
                   </div>
                 </div>
-
                 <div className="space-y-4">
                   <div className="bg-white/80 rounded-lg p-4 border border-blue-100">
                     <h3 className="font-semibold text-blue-800 mb-2">Applications to be tested:</h3>
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div className="flex flex-col items-center bg-blue-50 p-3 rounded-lg shadow">
-                        <img
-                          src="/word.png"
-                          alt="MS Word"
-                          className="w-8 h-8 mb-2"
-                        />
+                        <img src="/word.png" alt="MS Word" className="w-8 h-8 mb-2" />
                         <span className="text-blue-800 font-medium">MS Word</span>
                       </div>
                       <div className="flex flex-col items-center bg-green-50 p-3 rounded-lg shadow">
-                        <img
-                          src="/excel.png"
-                          alt="MS Excel"
-                          className="w-8 h-8 mb-2"
-                        />
+                        <img src="/excel.png" alt="MS Excel" className="w-8 h-8 mb-2" />
                         <span className="text-green-800 font-medium">MS Excel</span>
                       </div>
                       <div className="flex flex-col items-center bg-orange-50 p-3 rounded-lg shadow">
-                        <img
-                          src="/powerpoint.png"
-                          alt="MS PowerPoint"
-                          className="w-8 h-8 mb-2"
-                        />
+                        <img src="/powerpoint.png" alt="MS PowerPoint" className="w-8 h-8 mb-2" />
                         <span className="text-orange-800 font-medium text-center">MS PowerPoint</span>
                       </div>
                     </div>
                   </div>
-
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-1 flex-shrink-0" />
-                      <span>Complete tasks according to provided instructions</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Upload className="w-4 h-4 text-blue-500 mr-2 mt-1 flex-shrink-0" />
-                      <span>Upload completed files through platform interface</span>
+                      <span>Complete tasks and upload files through the platform</span>
                     </li>
                   </ul>
                 </div>

@@ -12,10 +12,7 @@ export async function localConvertToPDFWithSignatures(
   hallticketNo: string
 ): Promise<string> {
   const signaturePath = path.join(process.cwd(), "public", "sign.png");
-
-  if (!fs.existsSync(signaturePath)) {
-    throw new Error(`Signature file not found: ${signaturePath}`);
-  }
+  const hasSignature = fs.existsSync(signaturePath);
 
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath, { recursive: true });
@@ -25,9 +22,11 @@ export async function localConvertToPDFWithSignatures(
     throw new Error(`Input file not found: ${inputPath1}`);
   }
 
-  const command = process.platform === 'win32' 
-    ? `"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf --outdir "${folderPath}" "${inputPath1}"`
-    : `libreoffice --headless --convert-to pdf --outdir "${folderPath}" "${inputPath1}"`;
+  const command =
+    process.platform === "win32"
+      ? `"C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf --outdir "${folderPath}" "${inputPath1}"`
+      : `libreoffice --headless --convert-to pdf --outdir "${folderPath}" "${inputPath1}"`;
+
   const { stderr } = await execAsync(command);
   if (stderr && !stderr.includes("SyntaxWarning")) {
     throw new Error(`Failed to convert file to PDF: ${stderr}`);
@@ -35,8 +34,7 @@ export async function localConvertToPDFWithSignatures(
 
   const fileName = path
     .basename(inputPath1)
-    .replace(/\.(docx?|xlsx?|txt?|ppt?|pptx?|xls?|doc)$/, ".pdf");
-
+    .replace(/\.(docx?|xlsx?|txt?|ppt?|pptx?|xls?|doc)$/i, ".pdf");
   const pdfPath = path.join(folderPath, fileName);
 
   if (!fs.existsSync(pdfPath)) {
@@ -46,82 +44,69 @@ export async function localConvertToPDFWithSignatures(
   const { PDFDocument, rgb } = await import("pdf-lib");
   const pdfBytes = fs.readFileSync(pdfPath);
 
-  // Validate PDF header
   if (!pdfBytes.toString("utf8", 0, 5).startsWith("%PDF-")) {
     throw new Error(`Invalid PDF file: ${pdfPath}`);
   }
 
   const pdfDoc = await PDFDocument.load(pdfBytes);
 
-  const signatureBytes = fs.readFileSync(signaturePath);
-  const signatureImage = await pdfDoc.embedPng(signatureBytes);
+  const signatureImage = hasSignature
+    ? await pdfDoc.embedPng(fs.readFileSync(signaturePath))
+    : null;
+
+  const leftLogoPath = path.join(process.cwd(), "public", "ap_police.png");
+  const rightLogoPath = path.join(process.cwd(), "public", "ap.png");
+  const hasLeftLogo = fs.existsSync(leftLogoPath);
+  const hasRightLogo = fs.existsSync(rightLogoPath);
+  const leftLogoImage = hasLeftLogo ? await pdfDoc.embedPng(fs.readFileSync(leftLogoPath)) : null;
+  const rightLogoImage = hasRightLogo ? await pdfDoc.embedPng(fs.readFileSync(rightLogoPath)) : null;
 
   const pageCount = pdfDoc.getPageCount();
   for (let i = 0; i < pageCount; i++) {
     const page = pdfDoc.getPage(i);
 
-    const leftLogoPath = path.join(process.cwd(), "public", "ap_police.png");
-    const rightLogoPath = path.join(process.cwd(), "public", "ap.png");
+    const leftLogoWidth = 50;
+    const leftLogoHeight = 50;
+    const rightLogoWidth = 50;
+    const rightLogoHeight = 50;
+    const leftLogoXOffset = 50;
+    const leftLogoYOffset = page.getHeight() - leftLogoHeight - 20;
+    const rightLogoXOffset = page.getWidth() - rightLogoWidth - 50;
+    const rightLogoYOffset = page.getHeight() - rightLogoHeight - 20;
 
-    if (!fs.existsSync(leftLogoPath)) {
-      throw new Error(`Left logo file not found: ${leftLogoPath}`);
+    if (leftLogoImage) {
+      page.drawImage(leftLogoImage, {
+        x: leftLogoXOffset,
+        y: leftLogoYOffset,
+        width: leftLogoWidth,
+        height: leftLogoHeight,
+      });
     }
 
-    if (!fs.existsSync(rightLogoPath)) {
-      throw new Error(`Right logo file not found: ${rightLogoPath}`);
+    if (rightLogoImage) {
+      page.drawImage(rightLogoImage, {
+        x: rightLogoXOffset,
+        y: rightLogoYOffset,
+        width: rightLogoWidth,
+        height: rightLogoHeight,
+      });
     }
 
-    const leftLogoBytes = fs.readFileSync(leftLogoPath);
-    const rightLogoBytes = fs.readFileSync(rightLogoPath);
+    const yOffset = 50;
+    const xOffset = 50;
 
-    const leftLogoImage = await pdfDoc.embedPng(leftLogoBytes);
-    const rightLogoImage = await pdfDoc.embedPng(rightLogoBytes);
+    if (signatureImage) {
+      page.drawImage(signatureImage, {
+        x: xOffset,
+        y: yOffset,
+        width: 120,
+        height: 40,
+      });
+    }
 
-    const leftLogoWidth = 50; // Fixed width for left logo
-    const leftLogoHeight = 50; // Fixed height for left logo
-    const rightLogoWidth = 50; // Fixed width for right logo
-    const rightLogoHeight = 50; // Fixed height for right logo
-
-    const leftLogoXOffset = 50; // Distance from the left
-    const leftLogoYOffset = page.getHeight() - leftLogoHeight - 20; // Distance from the top
-
-    const rightLogoXOffset = page.getWidth() - rightLogoWidth - 50; // Distance from the right
-    const rightLogoYOffset = page.getHeight() - rightLogoHeight - 20; // Distance from the top
-
-    // Draw the left logo
-    page.drawImage(leftLogoImage, {
-      x: leftLogoXOffset,
-      y: leftLogoYOffset,
-      width: leftLogoWidth,
-      height: leftLogoHeight,
-    });
-
-    // Draw the right logo
-    page.drawImage(rightLogoImage, {
-      x: rightLogoXOffset,
-      y: rightLogoYOffset,
-      width: rightLogoWidth,
-      height: rightLogoHeight,
-    });
-
-    const yOffset = 50; // Distance from the bottom
-    const xOffset = 50; // Distance from the left
-
-    // Draw the provided signature
-    const signatureWidth = 120; // Fixed width
-    const signatureHeight = 40; // Fixed height
-    page.drawImage(signatureImage, {
-      x: xOffset,
-      y: yOffset,
-      width: signatureWidth,
-      height: signatureHeight,
-    });
-
-    // Add names and designations side by side below the signature on every page
     const fontSize = 15;
-    const textYOffset = yOffset - 20; // Position below the signature
-    const spacing = 200; // Horizontal spacing between name-designation pairs
-
+    const textYOffset = yOffset - 20;
+    const spacing = 200;
     const entries = [
       { name: "Dr. Ravi Shankar IPS\nDGP, CID-AP Police" },
       { name: "  Invigilator(CID)" },
@@ -141,7 +126,6 @@ export async function localConvertToPDFWithSignatures(
 
   const modifiedPdfBytes = await pdfDoc.save();
 
-  // Generate a hash of the modified PDF content
   const hash = crypto
     .createHash("sha256")
     .update(modifiedPdfBytes)
@@ -151,8 +135,6 @@ export async function localConvertToPDFWithSignatures(
   const hashedPdfPath = path.join(folderPath, hashedFileName);
 
   fs.writeFileSync(hashedPdfPath, modifiedPdfBytes);
-
-  // Remove the original file
   fs.unlinkSync(pdfPath);
 
   return hashedPdfPath;

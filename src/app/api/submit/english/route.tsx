@@ -6,18 +6,18 @@ import path from "path";
 import fs from "fs";
 import { localConvertToPDFWithSignatures } from "@/lib/localFileConvert";
 
-export async function saveFile(folderPath: string, file: File) {
-  const fileBuffer = Buffer.from(await file.arrayBuffer());
+const VALID_SECTIONS = ["GRAMMAR", "TRANSLATION"] as const;
 
-  const filePath = path.join(folderPath, file.name);
-
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath, { recursive: true });
-  }
-
-  fs.writeFileSync(filePath, fileBuffer);
-
-  return filePath;
+function saveFile(folderPath: string, file: File): Promise<string> {
+  return (async () => {
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
+    const filePath = path.join(folderPath, file.name);
+    if (!fs.existsSync(folderPath)) {
+      fs.mkdirSync(folderPath, { recursive: true });
+    }
+    fs.writeFileSync(filePath, fileBuffer);
+    return filePath;
+  })();
 }
 
 export async function POST(request: Request) {
@@ -26,18 +26,31 @@ export async function POST(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
     const body = await request.formData();
-    const wordfile = body.get("wordfile") as File;
+    const textFile = body.get("textfile") as File | null;
+    const sectionRaw = body.get("section") as string | null;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    if (!wordfile) {
+    if (!textFile || typeof textFile === "string") {
       return NextResponse.json(
-        { message: "word file is required" },
+        { message: "Text file is required" },
         { status: 400 }
       );
     }
+
+    if (
+      !sectionRaw ||
+      !VALID_SECTIONS.includes(sectionRaw as (typeof VALID_SECTIONS)[number])
+    ) {
+      return NextResponse.json(
+        { message: "Valid section (GRAMMAR or TRANSLATION) is required" },
+        { status: 400 }
+      );
+    }
+
+    const section = sectionRaw as "GRAMMAR" | "TRANSLATION";
 
     const token = authHeader.split(" ")[1];
     if (!token) {
@@ -79,7 +92,6 @@ export async function POST(request: Request) {
       fetched_user.hallticket,
       "original"
     );
-
     const pdfFolderPath = path.join(
       process.cwd(),
       "uploads",
@@ -87,12 +99,17 @@ export async function POST(request: Request) {
       "pdf"
     );
 
-    const originalpath = await saveFile(originalfolderPath, wordfile);
+    const fileName = section === "GRAMMAR" ? "grammar.txt" : "translation.txt";
+    const fileWithName = new File([await textFile.arrayBuffer()], fileName, {
+      type: textFile.type,
+    });
+
+    const originalpath = await saveFile(originalfolderPath, fileWithName);
 
     const backupRoot = path.parse(originalfolderPathBkp).root;
     if (backupRoot && fs.existsSync(backupRoot)) {
       try {
-        await saveFile(originalfolderPathBkp, wordfile);
+        await saveFile(originalfolderPathBkp, fileWithName);
       } catch (e) {
         console.warn("Failed to save backup file:", e);
       }
@@ -104,68 +121,32 @@ export async function POST(request: Request) {
       fetched_user.hallticket
     );
 
-    const formData = new FormData();
-    const cfileBuffer = fs.readFileSync(originalpath);
-    const cfileBlob = new Blob([cfileBuffer]);
-    const ofilepath = path.join(process.cwd(), "uploads/QPS/REF.docx");
-    const ofileBlob = new Blob([cfileBuffer]);
-    formData.append("reference", ofileBlob, path.basename(ofilepath));
-    formData.append("candidate", cfileBlob, path.basename(originalpath));
-
-    // const response = await fetch(
-    //   "https://exam-management-system-2ed1.onrender.com/api/evaluate",
-    //   {
-    //     method: "POST",
-    //     body: formData,
-    //   }
-    // );
-
-    // const responseData = await response.json();
-
-    // if (!response.ok) {
-    //   return NextResponse.json(
-    //     { message: "Failed to upload file to external API" },
-    //     { status: 500 }
-    //   );
-    // }
-
-    const fielEntryExists = await prisma.wordFile.findFirst({
-      where: { userId: fetched_user.id },
-      orderBy: { createdAt: "desc" },
-    });
-
-    if (fielEntryExists) {
-      await prisma.wordFile.create({
-        data: {
-          userId: fetched_user.id,
-          owordurl: originalpath,
-          pwordurl: pdfpath,
-          // score: responseData.report.total,
-        },
-      });
-      return NextResponse.json(
-        { message: "word File Updated Successfully" },
-        { status: 200 }
-      );
-    }
-
-    await prisma.wordFile.create({
-      data: {
+    await prisma.englishSectionAnswer.upsert({
+      where: {
+        userId_section: { userId: fetched_user.id, section },
+      },
+      create: {
         userId: fetched_user.id,
-        owordurl: originalpath,
-        pwordurl: pdfpath,
-        // score: responseData.report.total,
+        section,
+        otexturl: originalpath,
+        ptexturl: pdfpath,
+      },
+      update: {
+        otexturl: originalpath,
+        ptexturl: pdfpath,
       },
     });
 
     return NextResponse.json(
-      { message: "word File submitted successfully" },
+      { message: `English section (${section}) submitted successfully` },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error submitting text:", error);
+    console.error("Error submitting English section:", error);
+    const message =
+      error instanceof Error ? error.message : "Failed to submit English section";
     return NextResponse.json(
-      { message: "Failed to submit text" },
+      { message: "Failed to submit English section", detail: message },
       { status: 500 }
     );
   } finally {

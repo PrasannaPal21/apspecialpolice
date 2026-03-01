@@ -97,11 +97,16 @@ export async function POST(request: Request) {
     );
 
     const originalpath = await saveFile(originalfolderPath, textFile);
-   try {
-  const originalpathbkp = await saveFile(originalfolderPathBkp, textFile);
-} catch (e) {
-  console.warn('Failed to save file (originalpathbkp):', e);
-}
+
+    // Backup to Z: only if that drive/path is available (e.g. skip on dev when Z: is not mapped)
+    const backupRoot = path.parse(originalfolderPathBkp).root;
+    if (backupRoot && fs.existsSync(backupRoot)) {
+      try {
+        await saveFile(originalfolderPathBkp, textFile);
+      } catch (e) {
+        console.warn("Failed to save backup file:", e);
+      }
+    }
 
 
     const pdfpath = await localConvertToPDFWithSignatures(
@@ -112,8 +117,11 @@ export async function POST(request: Request) {
 
     const formData = new FormData();
     const candidateText = fs.readFileSync(originalpath, "utf-8");
-    const referenceTextPath = path.join(process.cwd(), "uploads/QPS/REF.txt");
-    const referenceText = fs.readFileSync(referenceTextPath, "utf-8");
+    const referenceTextPath = path.join(process.cwd(), "uploads", "QPS", "REF.txt");
+    let referenceText = "";
+    if (fs.existsSync(referenceTextPath)) {
+      referenceText = fs.readFileSync(referenceTextPath, "utf-8");
+    }
 
     formData.append("candidate_text", candidateText);
     formData.append("reference_text", referenceText);
@@ -136,20 +144,28 @@ export async function POST(request: Request) {
     //   );
     // }
 
-    await prisma.textFile.create({
-      data: {
+    await prisma.textFile.upsert({
+      where: { userId: fetched_user.id },
+      create: {
         userId: fetched_user.id,
         otexturl: originalpath,
         ptexturl: pdfpath,
         typingspeed: Number(typingSpeed),
-        // score: responseData.report.total,
-        // typingScore: responseData.report.typing_speed.score,
+      },
+      update: {
+        otexturl: originalpath,
+        ptexturl: pdfpath,
+        typingspeed: Number(typingSpeed),
       },
     });
 
-    await prisma.submission.create({
-      data: {
+    await prisma.submission.upsert({
+      where: { userId: fetched_user.id },
+      create: {
         userId: fetched_user.id,
+        textSubmitted: true,
+      },
+      update: {
         textSubmitted: true,
       },
     });
@@ -160,8 +176,9 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("Error submitting text:", error);
+    const message = error instanceof Error ? error.message : "Failed to submit text";
     return NextResponse.json(
-      { message: "Failed to submit text" },
+      { message: "Failed to submit text", detail: message },
       { status: 500 }
     );
   } finally {

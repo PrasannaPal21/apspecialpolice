@@ -29,11 +29,12 @@ model User {
   ipAddress   String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-  submissions Submission[]
-  excelFiles  excelFile[]
-  wordFiles   wordFile[]
-  pptFiles    pptFile[]
-  textFiles   textFile[]
+  submissions          Submission[]
+  excelFiles           excelFile[]
+  wordFiles            wordFile[]
+  pptFiles             pptFile[]
+  textFiles            textFile[]
+  englishSectionAnswers EnglishSectionAnswer[]
 }
 
 enum Role {
@@ -95,6 +96,22 @@ model textFile {
   user        User     @relation(fields: [userId], references: [id])
 }
 
+enum EnglishSectionType {
+  GRAMMAR
+  TRANSLATION
+}
+
+model EnglishSectionAnswer {
+  id        String             @id @default(cuid())
+  userId    String
+  section   EnglishSectionType
+  otexturl  String
+  ptexturl  String
+  createdAt DateTime           @default(now())
+  user      User               @relation(fields: [userId], references: [id])
+
+  @@unique([userId, section])
+}
 
 model QuestionPaper {
   id        String   @id @default(cuid())

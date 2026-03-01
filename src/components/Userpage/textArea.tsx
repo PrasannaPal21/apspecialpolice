@@ -284,8 +284,15 @@ export const TextArea: React.FC<TextAreaProps> = ({ setMessage, setSubmitStatus 
       });
 
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to submit text: ${errorMessage}`);
+        const text = await response.text();
+        let errorMessage = text;
+        try {
+          const json = JSON.parse(text) as { message?: string; detail?: string };
+          errorMessage = json.detail ?? json.message ?? text;
+        } catch {
+          // use raw text
+        }
+        throw new Error(errorMessage);
       }
 
       const successMessage = isAutoSubmit

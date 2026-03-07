@@ -169,7 +169,7 @@ const DashboardPage = () => {
         }
 
         setSubmittedData(result.submittedUsers);
-        
+
         interface User {
           id: string;
           name: string;
@@ -192,17 +192,17 @@ const DashboardPage = () => {
         // Enhanced grouping: Date -> Slot -> Room
         const groupedData = result.submittedUsers.reduce((acc: any, user: User) => {
           const { examdate, examslot, examroom } = user;
-          
+
           // Initialize date if not exists
           if (!acc[examdate]) {
             acc[examdate] = {};
           }
-          
+
           // Initialize slot if not exists
           if (!acc[examdate][examslot]) {
             acc[examdate][examslot] = {};
           }
-          
+
           // Initialize room if not exists
           if (!acc[examdate][examslot][examroom]) {
             acc[examdate][examslot][examroom] = {
@@ -212,13 +212,13 @@ const DashboardPage = () => {
               entries: [],
             };
           }
-          
+
           const roomData = acc[examdate][examslot][examroom];
           roomData.submitted += user.isSubmitted ? 1 : 0;
           roomData.notlogedin += user.logedInAt ? 0 : 1;
           roomData.writingExam += user.logedInAt && !user.isSubmitted ? 1 : 0;
           roomData.entries.push(user);
-          
+
           return acc;
         }, {});
 
@@ -273,7 +273,7 @@ const DashboardPage = () => {
 
   // Get all unique dates and slots for filtering
   const availableDates = Object.keys(sessionDateRoomData).sort();
-  const availableSlots = selectedDate && sessionDateRoomData[selectedDate] 
+  const availableSlots = selectedDate && sessionDateRoomData[selectedDate]
     ? Object.keys(sessionDateRoomData[selectedDate]).sort()
     : [];
 
@@ -420,9 +420,7 @@ const DashboardPage = () => {
                 onChange={(e) => setExamSlot(e.target.value)}
               >
                 <option value="" disabled>Select Exam Slot</option>
-                <option value="FN">FN</option>
-                <option value="AN">AN</option>                
-                <option value="EN">EN</option>
+                <option value="Single Slot">Single Slot</option>
               </select>
               <select
                 className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-green-500 focus:ring-4 focus:ring-green-500/20 transition-all duration-300 bg-white"
@@ -430,15 +428,7 @@ const DashboardPage = () => {
                 onChange={(e) => setExamDate(e.target.value)}
               >
                 <option value="" disabled>Select Exam Date</option>
-                <option value="2025-07-18">2025-07-18</option>
-                <option value="2025-07-19">2025-07-19</option>
-                <option value="2025-07-20">2025-07-20</option>
-                <option value="2025-07-21">2025-07-21</option>                
-                <option value="2025-07-23">2025-07-23</option>                
-                <option value="2025-07-26">2025-07-26</option>
-                <option value="2025-07-27">2025-07-27</option>
-                <option value="2025-07-28">2025-07-28</option>
-                <option value="2025-07-29">2025-07-29</option>
+                <option value="2026-03-08">8 March 2026</option>
               </select>
               <input
                 onChange={(e) => setOtp(e.target.value)}
@@ -474,9 +464,7 @@ const DashboardPage = () => {
               onChange={(e) => setExamSlot(e.target.value)}
             >
               <option value="" disabled>Select Exam Slot</option>
-              <option value="FN">FN</option>
-              <option value="AN">AN</option>
-              <option value="EN">EN</option>
+              <option value="Single Slot">Single Slot</option>
             </select>
             <select
               className="p-4 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/20 transition-all duration-300 bg-white"
@@ -484,15 +472,7 @@ const DashboardPage = () => {
               onChange={(e) => setExamDate(e.target.value)}
             >
               <option value="" disabled>Select Exam Date</option>
-              <option value="2025-07-18">2025-07-18</option>
-              <option value="2025-07-19">2025-07-19</option>
-              <option value="2025-07-20">2025-07-20</option>
-              <option value="2025-07-21">2025-07-21</option>
-              <option value="2025-07-23">2025-07-23</option>
-              <option value="2025-07-26">2025-07-26</option>
-              <option value="2025-07-27">2025-07-27</option>
-              <option value="2025-07-28">2025-07-28</option>
-              <option value="2025-07-29">2025-07-29</option>
+              <option value="2026-03-08">8 March 2026</option>
             </select>
             <input
               onChange={(e) => setOtp(e.target.value)}
@@ -513,7 +493,7 @@ const DashboardPage = () => {
         {/* Enhanced Session + Date + Room-wise Analytics */}
         <div className="space-y-6">
           <h2 className="text-3xl font-bold text-gray-800 text-center">Session & Date-wise Analytics</h2>
-          
+
           {/* Filters */}
           <div className="bg-white/70 backdrop-blur-xl shadow-xl rounded-3xl p-6 border border-white/20">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -533,7 +513,7 @@ const DashboardPage = () => {
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Select Exam Slot</label>
                 <select
@@ -560,7 +540,7 @@ const DashboardPage = () => {
                 </h3>
                 <div className="w-16 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mt-2"></div>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {Object.entries(filteredRoomData).map(([room, counts], index) => (
                   <div
@@ -579,7 +559,7 @@ const DashboardPage = () => {
                       </div>
                       <h3 className="text-2xl font-bold text-gray-800 mb-2">Room {room}</h3>
                     </div>
-                    
+
                     <div className="space-y-4">
                       <div className="flex justify-between items-center p-3 bg-green-50 rounded-xl">
                         <span className="text-green-700 font-semibold">Submitted</span>
@@ -641,7 +621,7 @@ const DashboardPage = () => {
                 Room {roomNo} Details - {selectedDate} ({selectedSlot})
               </h2>
             </div>
-            
+
             <div className="p-6 overflow-y-auto max-h-[70vh]">
               <div className="overflow-x-auto">
                 <table className="w-full bg-white rounded-2xl overflow-hidden shadow-lg">
@@ -659,18 +639,17 @@ const DashboardPage = () => {
                         <td className="py-4 px-6 border-b border-gray-100 font-medium text-gray-800">{user.name}</td>
                         <td className="py-4 px-6 border-b border-gray-100 font-mono text-gray-700">{user.hallticket}</td>
                         <td className="py-4 px-6 border-b border-gray-100">
-                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                            user.isSubmitted
-                              ? "bg-green-100 text-green-800"
-                              : user.logedInAt
+                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${user.isSubmitted
+                            ? "bg-green-100 text-green-800"
+                            : user.logedInAt
                               ? "bg-yellow-100 text-yellow-800"
                               : "bg-red-100 text-red-800"
-                          }`}>
+                            }`}>
                             {user.isSubmitted
                               ? "Submitted"
                               : user.logedInAt
-                              ? "Writing Exam"
-                              : "Not Started"}
+                                ? "Writing Exam"
+                                : "Not Started"}
                           </span>
                         </td>
                         <td className="py-4 px-6 border-b border-gray-100">
@@ -689,7 +668,7 @@ const DashboardPage = () => {
                 </table>
               </div>
             </div>
-            
+
             <div className="bg-gray-50 p-6 flex justify-center">
               <button
                 onClick={() => setPopup(false)}

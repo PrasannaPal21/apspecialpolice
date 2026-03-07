@@ -17,18 +17,9 @@ export default function QPViewer({
     return <></>;
   }
 
-  const formatDateToYYYYMMDD = (dateStr: string): string => {
-    const [dd, mm, yyyy] = dateStr.split("-");
-    return `${yyyy}-${mm}-${dd}`;
-  };
-
   const fetchQuestionPaper = async () => {
     try {
-      const userWithFormattedDate = {
-        ...session.user,
-        examdate: formatDateToYYYYMMDD(session.user.examdate),
-      };
-      const token = generateToken({ user: userWithFormattedDate }, 60);
+      const token = generateToken({ user: session.user }, 60);
       const res = await fetch("/api/fetch/qp", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -47,27 +38,22 @@ export default function QPViewer({
   };
   return (
     <div className="flex-1 flex justify-center items-center border-r border-gray-300">
-      <img src="/image.png" className="w-full h-full" title="Question Paper" />
+      {url ? (
+        <iframe src={url} className="w-full h-full" />
+      ) : (
+        <div className="text-center">
+          <p className="text-gray-600">
+            {message || "Question paper not available."}
+          </p>
+          <button
+            onClick={fetchQuestionPaper}
+            disabled={!session}
+            className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            Fetch Question Paper
+          </button>
+        </div>
+      )}
     </div>
-  )
-  // return (
-  //   <div className="flex-1 flex justify-center items-center border-r border-gray-300">
-  //     {url ? (
-  //       <iframe src={url} className="w-full h-full" />
-  //     ) : (
-  //       <div className="text-center">
-  //         <p className="text-gray-600">
-  //           {message || "Question paper not available."}
-  //         </p>
-  //         <button
-  //           onClick={fetchQuestionPaper}
-  //           disabled={!session}
-  //           className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg"
-  //         >
-  //           Fetch Question Paper
-  //         </button>
-  //       </div>
-  //     )}
-  //   </div>
-  // );
+  );
 }

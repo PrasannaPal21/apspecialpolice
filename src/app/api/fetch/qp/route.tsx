@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
     const decoded = extractDataFromToken(token);
     // console.log(decoded);
-    
+
     if (!decoded || !("user" in decoded)) {
       return NextResponse.json({ error: "Invalid token" }, { status: 403 });
     }
@@ -30,15 +30,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-      const formatDateToYYYYMMDD = (dateStr: string): string => {
-        const [dd, mm, yyyy] = dateStr.split("-");
-        return `${yyyy}-${mm}-${dd}`;
-      };
-
     const qp = await prisma.questionPaper.findFirst({
       where: {
         examslot: dbUser.examslot,
-        examdate: formatDateToYYYYMMDD(dbUser.examdate),
+        examdate: dbUser.examdate,
         display: true,
       },
     });

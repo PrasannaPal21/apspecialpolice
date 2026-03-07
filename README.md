@@ -20,8 +20,15 @@ APCID is a project designed to [brief description of the project]. This README p
     npm run build
     ```
 
+## Demo setup (optional)
+For a quick demo with typing reference only, run:
+```bash
+npm run demo:setup
+```
+This copies `demo_content/QPS/REF.txt` into `uploads/QPS/` without overwriting existing files. See `demo_content/QPS/README.md` for details.
+
 ## How to Run
-1. Before running the project, create a folder named `uploads` in the project directory. Inside the `uploads` folder, create another folder named `QPS`. Upload the required question papers into the `QPS` folder, as the project will pick the question papers from this location.
+1. Before running the project, create a folder named `uploads` in the project directory. Inside the `uploads` folder, create another folder named `QPS`. Upload the required question papers into the `QPS` folder, as the project will pick the question papers from this location. Alternatively, run `npm run demo:setup` to copy demo REF.txt.
 
 2. After building the project, you can run it using:
     ```bash

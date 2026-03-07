@@ -423,8 +423,8 @@ export async function GET(req: Request) {
         const spacing = 200; // Horizontal spacing between name-designation pairs
 
         const entries = [
-          { name: "Dr. Ravi Shankar IPS\nDGP, CID-AP Police" },
-          { name: "  Invigilator(CID)" },
+          { name: "Kuchipudi Nagesh Babu IPS\nSP Eagle, AP Police" },
+          { name: "  Invigilator" },
           { name: "Candidate" },
         ];
 

@@ -66,24 +66,35 @@ export function EnglishSectionArea({
 
   return (
     <div className="mb-6 p-4 bg-violet-50/80 border border-violet-200 rounded-xl">
-      <h3 className="text-lg font-semibold text-violet-800 mb-2">{label}</h3>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          disabled={disabled}
-          placeholder={`Type your ${label.toLowerCase()} answer here...`}
-          className="w-full h-32 p-3 border border-violet-200 rounded-lg bg-white text-gray-800 placeholder-gray-500 disabled:bg-gray-100 disabled:cursor-not-allowed resize-y"
-          required
-        />
-        <button
-          type="submit"
-          disabled={disabled || submitting || !text.trim()}
-          className="mt-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-        >
-          {disabled ? "Already submitted" : submitting ? "Submitting..." : "Submit"}
-        </button>
-      </form>
+      <h3 className="text-lg font-semibold text-violet-800 mb-4">{label}</h3>
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="w-full md:w-1/2 flex items-start">
+          <img
+            src={section === "GRAMMAR" ? "/grammar%20question.png" : "/translation%20question.png"}
+            alt={`${label} question`}
+            className="w-full rounded-lg shadow-sm border border-violet-200 bg-white"
+          />
+        </div>
+        <div className="w-full md:w-1/2 flex flex-col">
+          <form onSubmit={handleSubmit} className="flex flex-col h-full">
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              disabled={disabled}
+              placeholder={`Type your ${label.toLowerCase()} answer here...`}
+              className="w-full flex-grow min-h-[16rem] p-3 border border-violet-200 rounded-lg bg-white text-gray-800 placeholder-gray-500 disabled:bg-gray-100 disabled:cursor-not-allowed resize-y"
+              required
+            />
+            <button
+              type="submit"
+              disabled={disabled || submitting || !text.trim()}
+              className="mt-4 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            >
+              {disabled ? "Already submitted" : submitting ? "Submitting..." : "Submit"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

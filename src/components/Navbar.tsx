@@ -16,16 +16,9 @@ const Navbar: React.FC = () => {
 
             {/* Title */}
             <div className="text-center flex-1 mx-8">
-                <h1 className="text-white text-3xl font-bold tracking-wide mb-1 drop-shadow-lg">
-                    CRIME INVESTIGATION DEPARTMENT
+                <h1 className="text-white text-2xl md:text-3xl font-bold tracking-wide mb-1 drop-shadow-lg uppercase">
+                    AP SPECIAL POLICE FORCE RECRUITMENT
                 </h1>
-                <div className="flex items-center justify-center">
-                    <div className="h-px bg-yellow-400 flex-1 max-w-16"></div>
-                    <span className="text-yellow-200 text-xl font-semibold mx-4 tracking-widest">
-                        ANDHRA PRADESH
-                    </span>
-                    <div className="h-px bg-yellow-400 flex-1 max-w-16"></div>
-                </div>
             </div>
 
             {/* Right Logo */}

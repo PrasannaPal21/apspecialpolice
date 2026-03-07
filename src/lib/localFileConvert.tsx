@@ -48,7 +48,8 @@ export async function localConvertToPDFWithSignatures(
     throw new Error(`Invalid PDF file: ${pdfPath}`);
   }
 
-  const pdfDoc = await PDFDocument.load(pdfBytes);
+  const origPdfDoc = await PDFDocument.load(pdfBytes);
+  const pdfDoc = await PDFDocument.create();
 
   const signatureImage = hasSignature
     ? await pdfDoc.embedPng(fs.readFileSync(signaturePath))
@@ -61,9 +62,23 @@ export async function localConvertToPDFWithSignatures(
   const leftLogoImage = hasLeftLogo ? await pdfDoc.embedPng(fs.readFileSync(leftLogoPath)) : null;
   const rightLogoImage = hasRightLogo ? await pdfDoc.embedPng(fs.readFileSync(rightLogoPath)) : null;
 
-  const pageCount = pdfDoc.getPageCount();
-  for (let i = 0; i < pageCount; i++) {
-    const page = pdfDoc.getPage(i);
+  const embeddedPages = await pdfDoc.embedPages(origPdfDoc.getPages());
+  for (let i = 0; i < embeddedPages.length; i++) {
+    const embeddedPage = embeddedPages[i];
+    const { width, height } = embeddedPage;
+
+    const page = pdfDoc.addPage([width, height]);
+
+    // Scale down to leave margins for header and footer without overlapping content
+    const scale = 0.8;
+    const yShift = 100; // Shift up from the bottom
+
+    page.drawPage(embeddedPage, {
+      x: (width - width * scale) / 2,
+      y: yShift,
+      xScale: scale,
+      yScale: scale,
+    });
 
     const leftLogoWidth = 50;
     const leftLogoHeight = 50;
@@ -108,8 +123,8 @@ export async function localConvertToPDFWithSignatures(
     const textYOffset = yOffset - 20;
     const spacing = 200;
     const entries = [
-      { name: "Dr. Ravi Shankar IPS\nDGP, CID-AP Police" },
-      { name: "  Invigilator(CID)" },
+      { name: "Kuchipudi Nagesh Babu IPS\nSP Eagle, AP Police" },
+      { name: "  Invigilator" },
       { name: "Candidate" },
     ];
 

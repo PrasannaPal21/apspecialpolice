@@ -1,0 +1,69 @@
+﻿.next/types/app/api/addusers/route.ts(181,7): error TS2344: Type '{ __tag__: "POST"; __return_type__: Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; details: string; }> | { error: string; status: number; }>; }' does not satisfy the constraint '{ __tag__: "POST"; __return_type__: void | Response | Promise<void | Response>; }'.
+  Types of property '__return_type__' are incompatible.
+    Type 'Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; details: string; }> | { error: string; status: number; }>' is not assignable to type 'void | Response | Promise<void | Response>'.
+      Type 'Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; details: string; }> | { error: string; status: number; }>' is not assignable to type 'Promise<void | Response>'.
+        Type 'NextResponse<{ error: string; }> | NextResponse<{ message: string; details: string; }> | { error: string; status: number; }' is not assignable to type 'void | Response'.
+          Type '{ error: string; status: number; }' is not assignable to type 'void | Response'.
+            Type '{ error: string; status: number; }' is missing the following properties from type 'Response': headers, ok, redirected, statusText, and 11 more.
+.next/types/app/api/fetch/file/route.ts(181,7): error TS2344: Type '{ __tag__: "POST"; __return_type__: Promise<Response | { error: string; status: number; }>; }' does not satisfy the constraint '{ __tag__: "POST"; __return_type__: void | Response | Promise<void | Response>; }'.
+  Types of property '__return_type__' are incompatible.
+    Type 'Promise<Response | { error: string; status: number; }>' is not assignable to type 'void | Response | Promise<void | Response>'.
+      Type 'Promise<Response | { error: string; status: number; }>' is not assignable to type 'Promise<void | Response>'.
+        Type 'Response | { error: string; status: number; }' is not assignable to type 'void | Response'.
+          Type '{ error: string; status: number; }' is not assignable to type 'void | Response'.
+            Type '{ error: string; status: number; }' is missing the following properties from type 'Response': headers, ok, redirected, statusText, and 11 more.
+.next/types/app/api/fetch/merged/route.ts(64,7): error TS2344: Type '{ __tag__: "GET"; __return_type__: Promise<Response | { error: string; status: number; }>; }' does not satisfy the constraint '{ __tag__: "GET"; __return_type__: void | Response | Promise<void | Response>; }'.
+  Types of property '__return_type__' are incompatible.
+    Type 'Promise<Response | { error: string; status: number; }>' is not assignable to type 'void | Response | Promise<void | Response>'.
+      Type 'Promise<Response | { error: string; status: number; }>' is not assignable to type 'Promise<void | Response>'.
+        Type 'Response | { error: string; status: number; }' is not assignable to type 'void | Response'.
+          Type '{ error: string; status: number; }' is not assignable to type 'void | Response'.
+            Type '{ error: string; status: number; }' is missing the following properties from type 'Response': headers, ok, redirected, statusText, and 11 more.
+.next/types/app/api/fetch/submitted/route.ts(64,7): error TS2344: Type '{ __tag__: "GET"; __return_type__: Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; submittedUsers: { id: string; createdAt: Date; updatedAt: Date; textSubmitted: boolean; ... 5 more ...; submittedAt: Date | null; }[]; }> | { ...; }>; }' does not satisfy the constraint '{ __tag__: "GET"; __return_type__: void | Response | Promise<void | Response>; }'.
+  Types of property '__return_type__' are incompatible.
+    Type 'Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; submittedUsers: { id: string; createdAt: Date; updatedAt: Date; textSubmitted: boolean; userId: string; ... 4 more ...; submittedAt: Date | null; }[]; }> | { ...; }>' is not assignable to type 'void | Response | Promise<void | Response>'.
+      Type 'Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; submittedUsers: { id: string; createdAt: Date; updatedAt: Date; textSubmitted: boolean; userId: string; ... 4 more ...; submittedAt: Date | null; }[]; }> | { ...; }>' is not assignable to type 'Promise<void | Response>'.
+        Type 'NextResponse<{ error: string; }> | NextResponse<{ message: string; submittedUsers: { id: string; createdAt: Date; updatedAt: Date; textSubmitted: boolean; userId: string; mergedPdfUrl: string | null; filesSubmitted: boolean; name: string; hallticket: string; submittedAt: Date | null; }[]; }> | { ...; }' is not assignable to type 'void | Response'.
+          Type '{ error: string; status: number; }' is not assignable to type 'void | Response'.
+            Type '{ error: string; status: number; }' is missing the following properties from type 'Response': headers, ok, redirected, statusText, and 11 more.
+.next/types/app/api/finalsubmit/route.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("C:/Users/prasa/OneDrive/Desktop/ap police examination/new fork/apcid_private/src/app/api/finalsubmit/route"), "POST" | "GET" | "config" | "generateStaticParams" | ... 11 more ... | "PATCH", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'saveFile' is incompatible with index signature.
+    Type '(folderPath: string, file: File, hallticketNo: string) => Promise<string>' is not assignable to type 'never'.
+.next/types/app/api/finalsubmit/route.ts(64,7): error TS2344: Type '{ __tag__: "GET"; __return_type__: Promise<Response | { error: string; status: number; }>; }' does not satisfy the constraint '{ __tag__: "GET"; __return_type__: void | Response | Promise<void | Response>; }'.
+  Types of property '__return_type__' are incompatible.
+    Type 'Promise<Response | { error: string; status: number; }>' is not assignable to type 'void | Response | Promise<void | Response>'.
+      Type 'Promise<Response | { error: string; status: number; }>' is not assignable to type 'Promise<void | Response>'.
+        Type 'Response | { error: string; status: number; }' is not assignable to type 'void | Response'.
+          Type '{ error: string; status: number; }' is not assignable to type 'void | Response'.
+            Type '{ error: string; status: number; }' is missing the following properties from type 'Response': headers, ok, redirected, statusText, and 11 more.
+.next/types/app/api/submit/excelfile/route.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("C:/Users/prasa/OneDrive/Desktop/ap police examination/new fork/apcid_private/src/app/api/submit/excelfile/route"), "POST" | "GET" | "config" | "generateStaticParams" | ... 11 more ... | "PATCH", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'saveFile' is incompatible with index signature.
+    Type '(folderPath: string, file: File) => Promise<string>' is not assignable to type 'never'.
+.next/types/app/api/submit/pptfile/route.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("C:/Users/prasa/OneDrive/Desktop/ap police examination/new fork/apcid_private/src/app/api/submit/pptfile/route"), "POST" | "GET" | "config" | "generateStaticParams" | ... 11 more ... | "PATCH", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'saveFile' is incompatible with index signature.
+    Type '(folderPath: string, file: File) => Promise<string>' is not assignable to type 'never'.
+.next/types/app/api/submit/text/route.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("C:/Users/prasa/OneDrive/Desktop/ap police examination/new fork/apcid_private/src/app/api/submit/text/route"), "POST" | "GET" | "config" | "generateStaticParams" | ... 11 more ... | "PATCH", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'saveFile' is incompatible with index signature.
+    Type '(folderPath: string, file: File) => Promise<string>' is not assignable to type 'never'.
+.next/types/app/api/submit/wordfile/route.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("C:/Users/prasa/OneDrive/Desktop/ap police examination/new fork/apcid_private/src/app/api/submit/wordfile/route"), "POST" | "GET" | "config" | "generateStaticParams" | ... 11 more ... | "PATCH", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'saveFile' is incompatible with index signature.
+    Type '(folderPath: string, file: File) => Promise<string>' is not assignable to type 'never'.
+.next/types/app/api/test/route.ts(12,13): error TS2344: Type 'OmitWithTag<typeof import("C:/Users/prasa/OneDrive/Desktop/ap police examination/new fork/apcid_private/src/app/api/test/route"), "POST" | "GET" | "config" | "generateStaticParams" | ... 11 more ... | "PATCH", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'saveFile' is incompatible with index signature.
+    Type '(folderPath: string, file: File, hallticketNo: string) => Promise<string>' is not assignable to type 'never'.
+.next/types/app/api/uploadqp/route.ts(181,7): error TS2344: Type '{ __tag__: "POST"; __return_type__: Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; }> | { error: string; status: number; }>; }' does not satisfy the constraint '{ __tag__: "POST"; __return_type__: void | Response | Promise<void | Response>; }'.
+  Types of property '__return_type__' are incompatible.
+    Type 'Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; }> | { error: string; status: number; }>' is not assignable to type 'void | Response | Promise<void | Response>'.
+      Type 'Promise<NextResponse<{ error: string; }> | NextResponse<{ message: string; }> | { error: string; status: number; }>' is not assignable to type 'Promise<void | Response>'.
+        Type 'NextResponse<{ error: string; }> | NextResponse<{ message: string; }> | { error: string; status: number; }' is not assignable to type 'void | Response'.
+          Type '{ error: string; status: number; }' is not assignable to type 'void | Response'.
+            Type '{ error: string; status: number; }' is missing the following properties from type 'Response': headers, ok, redirected, statusText, and 11 more.
+src/app/api/auth/logout.ts(5,29): error TS2307: Cannot find module '../../../lib/auth' or its corresponding type declarations.
+src/app/api/fetch/qp/route.tsx(19,33): error TS2322: Type 'string | JwtPayload' is not assignable to type 'object'.
+  Type 'string' is not assignable to type 'object'.
+src/app/api/fetch/submitted/route.tsx(67,9): error TS2353: Object literal may only specify known properties, and 'oexcelurl' does not exist in type 'SubmissionSelect<DefaultArgs>'.
+src/app/api/releaseqp/route.ts(15,29): error TS2339: Property 'user' does not exist on type 'string | JwtPayload'.
+  Property 'user' does not exist on type 'string'.
+src/app/page.tsx(99,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/page.tsx(120,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/Userpage/filesUpload.tsx(32,9): error TS2503: Cannot find namespace 'JSX'.

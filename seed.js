@@ -20,11 +20,13 @@ async function main() {
     await clearUserData();
 
     const usersToCreate = [
-      { name: 'Test User 1', hallticket: 'TEST001', dobPlain: '01-01-1990', role: 'USER', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
-      { name: 'Test User 2', hallticket: 'TEST002', dobPlain: '02-02-1991', role: 'USER', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
-      { name: 'Test User 3', hallticket: 'TEST003', dobPlain: '03-03-1992', role: 'USER', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room B' },
-      { name: 'Test User 4', hallticket: 'TEST004', dobPlain: '04-04-1993', role: 'USER', examslot: 'Slot 2', examdate: '2026-05-01', examroom: 'Room B' },
-      { name: 'Test Admin', hallticket: 'ADMIN001', dobPlain: '05-05-1985', role: 'ADMIN', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room B' },
+      { name: 'Test User 11', hallticket: 'TEST011', dobPlain: '01-01-1990', role: 'USER', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
+      { name: 'Test User 12', hallticket: 'TEST012', dobPlain: '02-02-1991', role: 'USER', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
+      { name: 'Test User 13', hallticket: 'TEST013', dobPlain: '03-03-1992', role: 'USER', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
+      { name: 'Test User 14', hallticket: 'TEST014', dobPlain: '04-04-1993', role: 'USER', examslot: 'Slot 2', examdate: '2026-05-01', examroom: 'Room A' },
+      { name: 'Test Admin', hallticket: 'ADMIN001', dobPlain: '09-09-1985', role: 'ADMIN', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
+      { name: 'Test Admin', hallticket: 'ADMIN002', dobPlain: '09-09-1985', role: 'ADMIN', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
+      { name: 'Prasanna VIT', hallticket: 'SUPERADMIN001', dobPlain: '01-01-2004', role: 'SUPER_ADMIN', examslot: 'Slot 1', examdate: '2026-05-01', examroom: 'Room A' },
     ];
 
     for (const u of usersToCreate) {

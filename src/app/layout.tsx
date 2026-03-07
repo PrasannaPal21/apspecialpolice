@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "APCID Examination Portal",
-  description: "APCID Examination Portal is a platform for conducting examinations.",
+  title: "AP Special Police Force Recruitment",
+  description: "AP Special Police Force Recruitment is a platform for conducting examinations.",
 };
 
 export default function RootLayout({

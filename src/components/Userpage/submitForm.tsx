@@ -155,26 +155,31 @@ export const FormSubmit = ({
     );
 
     try {
-       const response = await fetch("/api/finalsubmit", {
-         method: "GET",
-         headers: {
-           Authorization: `Bearer ${token}`,
-         },
+      const response = await fetch("/api/finalsubmit", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      // if (!response.ok) {
-      //   throw new Error("Final submission failed");
-      // }
+      if (!response.ok) {
+        throw new Error("Final submission failed");
+      }
 
-      // const result = await response.blob();
-      // const url = URL.createObjectURL(result);
-      // const link = document.createElement("a");
-      // link.href = url;
-      // link.download = `${session.user.hallticket}.pdf`;
-      // document.body.appendChild(link);
-      // link.click();
-      // document.body.removeChild(link);
-      // URL.revokeObjectURL(url);
+      const result = await response.blob();
+      const url = URL.createObjectURL(result);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${session.user.hallticket}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Open in a new tab for immediate viewing
+      window.open(url, '_blank');
+
+      // Clean up the object URL after a short delay
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
 
       setMessage("Submitted Successfully!");
       setShowPopup(false);
@@ -205,7 +210,7 @@ export const FormSubmit = ({
   const handleSuccessConfirmation = async () => {
     setShowSuccessPopup(false);
     // Sign out user after confirmation
-    await signOut({ callbackUrl: '/login' }); // No callbackUrl = default NextAuth sign-out
+    await signOut({ callbackUrl: 'http://172.18.78.252:3001/login' });
     localStorage.removeItem("sessionStartTime");
     clearTimerState();
   };

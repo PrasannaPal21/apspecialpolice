@@ -428,7 +428,7 @@ const DashboardPage = () => {
                 onChange={(e) => setExamDate(e.target.value)}
               >
                 <option value="" disabled>Select Exam Date</option>
-                <option value="2026-03-08">8 March 2026</option>
+                <option value="2026-03-09">9 March 2026</option>
               </select>
               <input
                 onChange={(e) => setOtp(e.target.value)}
@@ -472,7 +472,7 @@ const DashboardPage = () => {
               onChange={(e) => setExamDate(e.target.value)}
             >
               <option value="" disabled>Select Exam Date</option>
-              <option value="2026-03-08">8 March 2026</option>
+              <option value="2026-03-09">9 March 2026</option>
             </select>
             <input
               onChange={(e) => setOtp(e.target.value)}
